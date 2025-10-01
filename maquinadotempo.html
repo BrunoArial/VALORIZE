@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquina do Tempo Financeira</title>
+    <!-- Link para a folha de estilos externa -->
+    <link rel="stylesheet" href="maquinadotempo.css">
+    <!-- Importa a biblioteca Chart.js para os gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Máquina do Tempo Financeira</h1>
+            <p>Simule estratégias de investimento com dados históricos da B3.</p>
+        </header>
+
+        <main>
+            <div class="menu">
+                <li><a href="index.html">Início</a></li>
+            </div>
+            <section id="control-panel" class="card">
+                <h2>Parâmetros da Simulação</h2>
+                <form id="simulation-form">
+                    <div class="form-group">
+                        <label for="ticker">Ativo (ex: PETR4):</label>
+                        <!-- Usamos uma lista de sugestões com os tickers sem token da API Brapi -->
+                        <input type="text" id="ticker" name="ticker" required value="PETR4" list="ticker-suggestions">
+                        <datalist id="ticker-suggestions">
+                            <option value="PETR4">
+                            <option value="MGLU3">
+                            <option value="VALE3">
+                            <option value="ITUB4">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Valor do Aporte (R$):</label>
+                        <input type="number" id="amount" name="amount" required min="1" value="500">
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency">Frequência:</label>
+                        <select id="frequency" name="frequency">
+                            <option value="monthly" selected>Mensal</option>
+                            <!-- Outras frequências podem ser adicionadas no futuro -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="start-date">Data de Início:</label>
+                        <input type="date" id="start-date" name="start-date" required value="2018-01-01">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-date">Data de Fim:</label>
+                        <input type="date" id="end-date" name="end-date" required value="2024-01-01">
+                    </div>
+                    <button type="submit" id="run-simulation-btn">Executar Simulação</button>
+                </form>
+            </section>
+
+            <!-- A seção de resultados começa oculta e é exibida via JS -->
+            <section id="results-dashboard" class="card hidden">
+                <div id="loading-spinner" class="hidden"></div>
+                <div id="results-content" class="hidden">
+                    <h2>Resultados da Simulação</h2>
+                    <div id="summary-table-container"></div>
+                    <div id="chart-container">
+                        <canvas id="portfolio-chart"></canvas>
+                    </div>
+                </div>
+                 <div id="error-message" class="hidden" style="color: red; text-align: center; padding: 1rem;"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Ferramenta educacional. Não constitui recomendação de investimento.</p>
+        </footer>
+    </div>
+    
+    <!-- Link para o script externo -->
+    <script src="maquinadotempo.js"></script>
+</body>
+</html>
