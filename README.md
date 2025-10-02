@@ -1,4 +1,0 @@
-# Projeto-Web-Design
-
-Primeiro commit do projeto, o objetivo é fazer um site com diversos dashboards interativos focados em finanças e investimentos num geral.
-Objetivos: além de usar apenas as linguagens HTML, CSS e JAVASCRIPT, tornar o site em um ambiente ideal para um investidor, ou "amantes da economia", com diversas informações
