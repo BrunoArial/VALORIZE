@@ -1,0 +1,46 @@
+    :root 
+{
+    --fonte-titulos: 'Poppins', sans-serif;
+    --texto: 'Inter', sans-serif;
+    --cor-texto: #FFFFFF;
+    --texto-secundario: #C5C6C7;
+    --bg-principal: #0B0C10;
+    --bg-secundario: #1F2833;
+}
+.menu{
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    background: var(--bg-secundario);
+    color: white;
+    padding: 12px;
+    border-radius: 2px;
+}
+    body {
+      font-family: var(--fonte-titulos);
+      background: var(--bg-principal);
+      color: var(--cor-texto);
+      padding: 20px;
+    }
+
+    .container {
+      display: flex; 
+      gap: 20px;     
+      flex-wrap: wrap; 
+      font-family: var(--texto);
+      color: var(--cor-texto)
+    }
+
+    .coin {
+      background: var(--bg-secundario);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 180px;
+      text-align: center;
+    }
+
+    .coin img {
+      width: 40px;
+      height: 40px;
+    }

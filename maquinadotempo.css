@@ -41,7 +41,6 @@ header h1 {
     font-family: var(--fonte-titulos);
 }
 
-/* Painel de Controle e Formulário */
 .card {
     background-color: var(--bg-secundario);
     padding: 2rem;
@@ -58,7 +57,6 @@ header h1 {
 
 #simulation-form {
     display: grid;
-    /* Layout responsivo do formulário */
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
 }
@@ -87,7 +85,7 @@ input:focus, select:focus {
 }
 
 button {
-    grid-column: 1 / -1; /* Botão ocupa a largura total */
+    grid-column: 1 / -1; 
     padding: 14px;
     background-color: #1F2833;
     color: white;
@@ -108,7 +106,6 @@ button:active {
     transform: scale(0.99);
 }
 
-/* Seção de Resultados */
 .hidden {
     display: none !important;
 }
@@ -128,7 +125,6 @@ button:active {
     100% { transform: rotate(360deg); }
 }
 
-/* Tabela de Resultados */
 #summary-table-container table {
     width: 100%;
     border-collapse: collapse;
@@ -152,7 +148,6 @@ button:active {
     font-weight: 600;
 }
 
-/* Gráfico */
 #chart-container {
     position: relative;
     height: 450px;

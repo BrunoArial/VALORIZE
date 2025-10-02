@@ -2,39 +2,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('simulation-form');
 
     form.addEventListener('submit', (event) => {
-        event.preventDefault(); // Impede o envio padrão do formulário.
-
-        // Coleta os dados do formulário
+        event.preventDefault(); 
         const ticker = document.getElementById('ticker').value.trim().toUpperCase();
         const amount = parseFloat(document.getElementById('amount').value);
         const startDate = document.getElementById('start-date').value;
         const endDate = document.getElementById('end-date').value;
 
-        // Valida os dados antes de prosseguir
         if (!validateInputs(ticker, amount, startDate, endDate)) {
-            return; // Interrompe a execução se a validação falhar.
+            return; 
         }
 
-        // Inicia o processo de simulação
         runSimulation(ticker, amount, startDate, endDate);
     });
 });
 
 function validateInputs(ticker, amount, startDate, endDate) {
-    // Validação do Ticker (formato B3)
     const tickerRegex = /^[A-Z]{4}[0-9]{1,2}$/;
     if (!ticker || !tickerRegex.test(ticker)) {
         showError("Por favor, insira um código de ativo válido (ex: PETR4, VALE3).");
         return false;
     }
 
-    // Validação do Valor do Aporte
     if (isNaN(amount) || amount <= 0) {
         showError("O valor do aporte deve ser um número positivo.");
         return false;
     }
 
-    // Validação das Datas
     if (!startDate || !endDate) {
         showError("Por favor, selecione as datas de início e fim.");
         return false;
@@ -47,57 +40,45 @@ function validateInputs(ticker, amount, startDate, endDate) {
         return false;
     }
     
-    // Limpa erros antigos antes de iniciar uma nova simulação válida
     document.getElementById('error-message').classList.add('hidden');
-    return true; // Todos os dados são válidos.
+    return true; 
 }
 
-/**
- * Orquestra todo o processo de simulação.
- */
 async function runSimulation(ticker, amount, startDate, endDate) {
-    console.log("Iniciando simulação..."); // Log de depuração
+    console.log("Iniciando simulação...");
     const resultsDashboard = document.getElementById('results-dashboard');
     const loadingSpinner = document.getElementById('loading-spinner');
     const resultsContent = document.getElementById('results-content');
     const errorMessageDiv = document.getElementById('error-message');
 
-    // Prepara a UI para uma nova simulação
     resultsDashboard.classList.remove('hidden');
     loadingSpinner.classList.remove('hidden');
     resultsContent.classList.add('hidden');
     errorMessageDiv.classList.add('hidden');
 
     try {
-        // 1. Busca os dados históricos da API
-        console.log("Buscando dados da API..."); // Log de depuração
+        console.log("Buscando dados da API..."); 
         const historicalData = await fetchStockData(ticker, startDate, endDate);
-        console.log("Dados recebidos da API:", historicalData); // Log de depuração
+        console.log("Dados recebidos da API:", historicalData);
 
         if (!historicalData || historicalData.length === 0) {
            throw new Error("Não foram encontrados dados históricos para o ativo no período selecionado. Verifique o ticker e as datas.");
         }
 
-        // 2. Executa a lógica de simulação da estratégia
-        console.log("Executando estratégia de investimento..."); // Log de depuração
+        console.log("Executando estratégia de investimento...");
         const simulationResult = executeDcaStrategy(historicalData, amount, startDate, endDate);
 
-        // 3. Calcula as métricas de desempenho
-        console.log("Calculando métricas de desempenho..."); // Log de depuração
+        console.log("Calculando métricas de desempenho..."); 
         const performanceMetrics = calculatePerformanceMetrics(simulationResult, startDate, endDate);
 
-        // 4. Exibe os resultados (tabela e gráfico) na tela
-        console.log("Exibindo resultados..."); // Log de depuração
+        console.log("Exibindo resultados...");
         displayResults(performanceMetrics, simulationResult.portfolioHistory);
 
-        // Mostra os resultados e esconde o carregamento
         resultsContent.classList.remove('hidden');
     } catch (error) {
-        // Em caso de qualquer erro no processo, ele será capturado aqui
         console.error("Erro durante a simulação:", error);
         showError(error.message);
     } finally {
-        // Garante que o spinner de carregamento sempre seja escondido no final
         loadingSpinner.classList.add('hidden');
     }
 }
@@ -108,23 +89,17 @@ function showError(message) {
      const resultsContent = document.getElementById('results-content');
      const loadingSpinner = document.getElementById('loading-spinner');
      
-     // Garante que o painel de resultados esteja visível para mostrar o erro
      resultsDashboard.classList.remove('hidden');
-     // Esconde o conteúdo de sucesso e o spinner
      resultsContent.classList.add('hidden');
      loadingSpinner.classList.add('hidden');
 
-     // Define e exibe a mensagem de erro
      errorMessageDiv.textContent = `Ocorreu um erro: ${message}`;
      errorMessageDiv.classList.remove('hidden');
 }
 
-/**
- * Busca dados históricos de um ativo na API Brapi.
- */
 async function fetchStockData(ticker, startDate, endDate) {
-    const range = '10y'; // Busca dados dos últimos 10 anos para garantir cobertura.
-    const interval = '1d'; // Intervalo diário.
+    const range = 'max'; 
+    const interval = '1d'; 
     const url = `https://brapi.dev/api/quote/${ticker}?range=${range}&interval=${interval}`;
 
     const response = await fetch(url);
@@ -134,7 +109,7 @@ async function fetchStockData(ticker, startDate, endDate) {
     }
 
     const data = await response.json();
-    console.log("Dados brutos da API:", data); // Log crucial para depuração da API
+    console.log("Dados brutos da API:", data); 
 
     if (data.error) {
         throw new Error(`A API retornou um erro: ${data.error}`);
@@ -148,7 +123,7 @@ async function fetchStockData(ticker, startDate, endDate) {
     const userEndDate = new Date(endDate);
 
     const historicalData = data.results[0].historicalDataPrice.filter(item => {
-        const itemDate = new Date(item.date * 1000); // O timestamp da API está em segundos.
+        const itemDate = new Date(item.date * 1000); 
         return itemDate >= userStartDate && itemDate <= userEndDate;
     });
 
@@ -157,9 +132,6 @@ async function fetchStockData(ticker, startDate, endDate) {
     return historicalData;
 }
 
-/**
- * Executa a estratégia de aportes mensais (Dollar Cost Averaging).
- */
 function executeDcaStrategy(historicalData, monthlyAmount, startDateStr, endDateStr) {
     let totalInvested = 0;
     let sharesOwned = 0;
@@ -203,9 +175,6 @@ function executeDcaStrategy(historicalData, monthlyAmount, startDateStr, endDate
     return { totalInvested, finalPortfolioValue, sharesOwned, portfolioHistory };
 }
 
-/**
- * Agrupa os cálculos de métricas de desempenho.
- */
 function calculatePerformanceMetrics(simulationResult, startDate, endDate) {
     const { totalInvested, finalPortfolioValue } = simulationResult;
     
@@ -284,7 +253,7 @@ function renderPortfolioChart(portfolioHistory) {
             datasets: [{
                 label: 'Valor do Portfólio',
                 data: portfolioHistory,
-                borderColor: 'rgba(0, 82, 204, 1)',
+                borderColor: 'rgba(255, 255, 255, 1)',
                 backgroundColor: 'rgba(0, 82, 204, 0.1)',
                 borderWidth: 2,
                 pointRadius: 0, 
