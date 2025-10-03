@@ -8,13 +8,17 @@
     --bg-secundario: #1F2833;
 }
 .menu{
-    position: fixed;
-    bottom: 12px;
-    right: 12px;
-    background: var(--bg-secundario);
-    color: white;
-    padding: 12px;
-    border-radius: 2px;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 999;
 }
 body 
 {

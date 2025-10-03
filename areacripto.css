@@ -1,46 +1,77 @@
-    :root 
-{
-    --fonte-titulos: 'Poppins', sans-serif;
-    --texto: 'Inter', sans-serif;
-    --cor-texto: #FFFFFF;
-    --texto-secundario: #C5C6C7;
-    --bg-principal: #0B0C10;
-    --bg-secundario: #1F2833;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0B0C10;
+  padding: 20px;
+  text-align: center;
 }
 .menu{
-    position: fixed;
-    bottom: 12px;
-    right: 12px;
-    background: var(--bg-secundario);
-    color: white;
-    padding: 12px;
-    border-radius: 2px;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background 0.2s;
+  z-index: 999;
 }
-    body {
-      font-family: var(--fonte-titulos);
-      background: var(--bg-principal);
-      color: var(--cor-texto);
-      padding: 20px;
-    }
 
-    .container {
-      display: flex; 
-      gap: 20px;     
-      flex-wrap: wrap; 
-      font-family: var(--texto);
-      color: var(--cor-texto)
-    }
+h1 {
+  margin-bottom: 20px;
+  color: #FFFFFF;
+}
 
-    .coin {
-      background: var(--bg-secundario);
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 180px;
-      text-align: center;
-    }
+#coins {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
 
-    .coin img {
-      width: 40px;
-      height: 40px;
-    }
+.coin {
+  width: 220px;
+  border: 1px solid #ddd;
+  color: #C5C6C7;
+  border-radius: 12px;
+  padding: 15px;
+  background: #1F2833;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.coin:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.coin img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.coin h3 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+  color: ⁠#C5C6C7;
+}
+
+.coin p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #C5C6C7;
+}
+
+.positive {
+  color: green;
+  font-weight: bold;
+}
+
+.negative {
+  color: red;
+  font-weight: bold;
+}
