@@ -2,18 +2,29 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cotações Cripto</title>
   <link rel="stylesheet" href="areacripto.css">
 </head>
 <body>
+<div class="tradingview-widget-container" style="height:500px; width:100%;">
+      <div class="tradingview-widget-container__widget"></div>
   <header>
     <div class="menu">
-                <a href="index.html">Início</a>
+      <a href="index.html">Início</a>
     </div>
   </header>
-  <h1> Cotações Criptomoedas </h1>
-  <div id="coins"></div>
+  
+  <main class="container">
+    <h1>Cotações Criptomoedas</h1>
 
+    <div id="tradingview_f7a6a"></div> 
+    
+    <div id="coins"></div>
+  </main>
+
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script src="graficocripto.js"></script>
   <script src="areacripto.js"></script>
-</body>
+  </body>
 </html>
