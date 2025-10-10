@@ -1,28 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotações Cripto</title>
-  <link rel="stylesheet" href="tesourodireto.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Tesouro Direto</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tesourodireto.css">
 </head>
 <body>
     <div class="container">
-  <header>
-    <div class="menu">
-      <a href="../index.html">Início</a>
+        <header>
+            <div class="menu">
+                <a href="../index.html">Início</a>
+            </div>
+            <h1>Renda Fixa</h1>
+            <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
+            <nav>
+                <a href="tesourodireto.html">Tesouro Direto</a>
+                <a href="lci-lca.html">LCI & LCA</a>
+                <a href="cdb.html">CDB</a>
+                <a href="cdi.html">CDI</a>
+            </nav>
+        </header>
+        
+        <main>
+            <div class="column-simulator">
+                <div class="card">
+                    <h2 class="card-title">Simulador</h2>
+                    <form id="investment-form">
+                        <div class="form-group">
+                            <label for="initial-amount" class="form-label">Valor do Aporte (R$)</label>
+                            <input type="number" id="initial-amount" class="form-input" placeholder="Ex: 1000" min="1" step="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="investment-years" class="form-label">Prazo (em anos)</label>
+                            <input type="number" id="investment-years" class="form-input" placeholder="Ex: 5" min="1" step="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bond-type" class="form-label">Tipo de Título</label>
+                            <select id="bond-type" class="form-select" required>
+                                <option value="selic">Tesouro Selic</option>
+                                <option value="prefixado">Tesouro Prefixado</option>
+                                <option value="ipca">Tesouro IPCA+</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Calcular</button>
+                    </form>
+                </div>
+                
+                <div id="result-container" class="card result-card hidden">
+                    <h3 class="card-title">Resultado</h3>
+                    <div class="result-details">
+                        <div class="result-item"><span>Valor Inicial:</span> <span id="result-initial" class="result-value-white"></span></div>
+                        <div class="result-item"><span>Valor Bruto Final:</span> <span id="result-gross" class="result-value-white"></span></div>
+                        <div class="result-item"><span>Rendimento Bruto:</span> <span id="result-gross-profit" class="result-value-highlight"></span></div>
+                        <hr class="divider-solid">
+                        <div class="result-item small-text"><span>(-) Imposto de Renda:</span> <span id="result-ir" class="result-value-negative"></span></div>
+                        <div class="result-item small-text"><span>(-) Taxa de Custódia (B3):</span> <span id="result-fee" class="result-value-negative"></span></div>
+                        <hr class="divider-dashed">
+                        <div class="result-item final-value">
+                            <span>Valor Líquido Final:</span>
+                            <span id="result-net" class="result-value-highlight-bold"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column-chart">
+                <div class="card">
+                         <div class="chart-container">
+                            <canvas id="result-chart"></canvas>
+                        </div>
+                </div>
+            </div>
+        </main>
     </div>
-    <h1>Renda fixa</h1>
-    <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
-    <nav>
-        <a href="tesourodireto.html">Tesouro Direto</a>
-        <a href="lci-lca.html">LCI & LCA</a>
-        <a href="cdb.html">CDB</a>
-        <a href="cdi.html">CDI</a>
-    </nav>
-    </header>
-  </main>
-  </div>
-  <script src="tesourodireto.js"></script>
-  </body>
+    <script src="tesourodireto.js"></script>
+</body>
 </html>
