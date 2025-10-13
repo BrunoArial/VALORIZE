@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Referências aos elementos do DOM
     const form = document.getElementById('cdb-form');
     const resultadosPlaceholder = document.getElementById('resultados-placeholder');
     const resultadosConteudo = document.getElementById('resultados-conteudo');
-
-    // Elementos de resultado
     const valorBrutoFinalEl = document.getElementById('valor-bruto-final');
     const impostoRendaEl = document.getElementById('imposto-renda');
     const valorLiquidoFinalEl = document.getElementById('valor-liquido-final');
@@ -14,12 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let graficoCdb = null;
 
-    // Função para formatar valores em moeda
     const formatarMoeda = (valor) => {
         return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     };
 
-    // Função que retorna a alíquota do IR conforme a regra do CDB
     const obterAliquotaIR = (prazoMeses) => {
         const dias = prazoMeses * 30;
         if (dias <= 180) return 0.225;
@@ -28,11 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return 0.15;
     };
 
-    // Função principal para simular o investimento
     const simularInvestimento = (evento) => {
         evento.preventDefault();
 
-        // Leitura dos valores do formulário
         const valorInicial = parseFloat(document.getElementById('valor-inicial').value) || 0;
         const aporteMensal = parseFloat(document.getElementById('aporte-mensal').value) || 0;
         const prazoMeses = parseInt(document.getElementById('prazo-meses').value) || 0;
@@ -44,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // --- Lógica de Cálculo ---
         const taxaDiaria = Math.pow(1 + (taxaDi / 100), 1 / 252) - 1;
         const taxaEfetivaDiaria = taxaDiaria * (rentabilidadeCdb / 100);
 
@@ -62,10 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 valorAcumulado += aporteMensal;
                 totalAportado += aporteMensal;
             }
-            const diasUteisMes = 21; // Média de dias úteis num mês
+            const diasUteisMes = 21;
             valorAcumulado *= Math.pow(1 + taxaEfetivaDiaria, diasUteisMes);
 
-            // Armazenar dados para o gráfico a cada 6 meses ou no último mês
             if (mes % 6 === 0 || mes === prazoMeses) {
                 dadosGrafico.labels.push(`${mes}m`);
                 dadosGrafico.investido.push(totalAportado);
@@ -78,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const impostoDevido = jurosBrutos * aliquotaIr;
         const valorLiquido = valorAcumulado - impostoDevido;
 
-        // --- Atualizar a Interface ---
         resultadosPlaceholder.classList.add('hidden');
         resultadosConteudo.classList.remove('hidden');
 
