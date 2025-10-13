@@ -1,28 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotações Cripto</title>
-  <link rel="stylesheet" href="cdi.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora CDI - Renda Fixa</title>
+    <link rel="stylesheet" href="cdi.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
-  <header>
-    <div class="menu">
-      <a href="../index.html">Início</a>
+        <header>
+            <div class="menu">
+                <a href="../index.html">Início</a>
+            </div>
+            <h1>Renda Fixa</h1>
+            <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
+            <nav>
+                <a href="tesourodireto.html">Tesouro Direto</a>
+                <a href="lci-lca.html">LCI & LCA</a>
+                <a href="cdb.html">CDB</a>
+                <a href="cdi.html">CDI</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="calculator-container">
+                <h2>Calculadora de Investimento CDI</h2>
+                <p class="subtitle">Descubra o rendimento da sua aplicação em Renda Fixa atrelada ao CDI.</p>
+        
+                <div class="input-group">
+                    <label for="initial-investment">Valor Inicial (R$)</label>
+                    <input type="number" id="initial-investment" placeholder="1000">
+                </div>
+        
+                <div class="input-group">
+                    <label for="investment-time">Prazo (em meses)</label>
+                    <input type="number" id="investment-time" placeholder="12">
+                </div>
+        
+                <div class="input-group">
+                    <label for="cdi-rate">Taxa CDI Atual (% ao ano)</label>
+                    <input type="number" id="cdi-rate" value="10.50" step="0.01">
+                </div>
+        
+                <div class="input-group">
+                    <label for="investment-percentage">Percentual do CDI do Investimento (%)</label>
+                    <input type="number" id="investment-percentage" placeholder="100">
+                </div>
+        
+                <button onclick="calculateInvestment()">Calcular</button>
+        
+                <div id="result-container" class="hidden">
+                    <h3>Resultado do Investimento</h3>
+                    <p><strong>Valor Bruto:</strong> <span id="gross-amount"></span></p>
+                    <p><strong>Rendimento Bruto:</strong> <span id="gross-return"></span></p>
+                    <p><strong>Imposto de Renda:</strong> <span id="ir-tax"></span></p>
+                    <p class="net-result"><strong>Valor Líquido:</strong> <span id="net-amount"></span></p>
+                </div>
+            </div>
+            
+            <div id="chart-container" class="chart-container hidden">
+                <canvas id="investmentChart"></canvas>
+            </div>
+
+        </main>
     </div>
-    <h1>Renda fixa</h1>
-    <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
-    <nav>
-        <a href="tesourodireto.html">Tesouro Direto</a>
-        <a href="lci-lca.html">LCI & LCA</a>
-        <a href="cdb.html">CDB</a>
-        <a href="cdi.html">CDI</a>
-    </nav>
-    </header>
-  </main>
-  </div>
-  <script src="cdi.js"></script>
-  </body>
+    <script src="cdi.js"></script>
+</body>
 </html>

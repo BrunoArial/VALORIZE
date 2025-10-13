@@ -1,5 +1,4 @@
-:root 
-{
+:root {
     --fonte-titulos: 'Poppins', sans-serif;
     --texto: 'Inter', sans-serif;
     --cor-texto: #FFFFFF;
@@ -7,20 +6,6 @@
     --bg-principal: #0B0C10;
     --bg-secundario: #1F2833;
 }
-
-.menu{
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  padding: 8px 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 999;
-}   
 
 body 
 {
@@ -52,3 +37,111 @@ header h1 {
       margin: 0 10px;
       font-weight: 600;
     }
+
+nav a {
+    margin: 0 10px;
+}
+.calculator-container {
+    background-color: var(--bg-secundario);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    box-sizing: border-box;
+}
+
+.calculator-container h2 {
+    text-align: center;
+    font-family: var(--fonte-titulos);
+    color: var(--cor-texto);
+    margin-bottom: 10px;
+}
+
+.calculator-container .subtitle {
+    text-align: center;
+    color: var(--texto-secundario);
+    margin-bottom: 25px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--texto-secundario);
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #454d55;
+    background-color: var(--bg-principal);
+    color: var(--cor-texto);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.input-group input::placeholder {
+    color: #6c757d;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #00B894;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#result-container {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #454d55;
+}
+
+#result-container h3 {
+    text-align: center;
+    font-family: var(--fonte-titulos);
+    color: var(--cor-texto);
+}
+
+#result-container p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: var(--texto-secundario);
+    margin: 10px 0;
+}
+
+#result-container p span {
+    font-weight: bold;
+    color: var(--cor-texto);
+}
+
+.net-result span {
+    color: #28a745;
+    font-size: 1.2rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.chart-container {
+    background-color: var(--bg-secundario);
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
