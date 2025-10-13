@@ -3,26 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotações Cripto</title>
+  <title>LCI & LCA - Comparador</title>
   <link rel="stylesheet" href="lci-lca.css">
 </head>
 <body>
+  <div class="container">
     <div class="container">
-  <header>
-    <div class="menu">
-      <a href="../index.html">Início</a>
-    </div>
-    <h1>Renda fixa</h1>
-    <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
-    <nav>
-        <a href="tesourodireto.html">Tesouro Direto</a>
-        <a href="lci-lca.html">LCI & LCA</a>
-        <a href="cdb.html">CDB</a>
-        <a href="cdi.html">CDI</a>
-    </nav>
-    </header>
-  </main>
+        <header>
+            <div class="menu">
+                <a href="../index.html">Início</a>
+            </div>
+            <h1>Renda Fixa</h1>
+            <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
+            <nav>
+                <a href="tesourodireto.html">Tesouro Direto</a>
+                <a href="lci-lca.html">LCI & LCA</a>
+                <a href="cdb.html">CDB</a>
+                <a href="cdi.html">CDI</a>
+            </nav>
+        </header>
+
+    <main>
+      <section>
+        <h2>Comparador de LCI / LCA</h2>
+        <p>Adicione ofertas e veja qual tem o melhor rendimento final.</p>
+
+        <div class="grid">
+          <div>
+            <table id="offers-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Banco</th>
+                  <th>Tipo</th>
+                  <th>Remuneração</th>
+                  <th>Prazo (meses)</th>
+                  <th>Valor final (R$)</th>
+                  <th>Retorno (%)</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <p id="summary"></p>
+          </div>
+
+          <aside class="controls">
+            <h3>Adicionar oferta</h3>
+
+            <label>Banco / Emissor
+              <input id="bank" placeholder="Ex: Banco X" />
+            </label>
+
+            <label>Tipo
+              <select id="kind">
+                <option value="LCI">LCI</option>
+                <option value="LCA">LCA</option>
+              </select>
+            </label>
+
+            <label>Taxa / % do CDI
+              <input id="rate" placeholder="Ex: 8.5 ou 95" />
+            </label>
+
+            <label>Formato da taxa
+              <select id="rate-type">
+                <option value="fixed">Taxa anual fixa (%)</option>
+                <option value="of-cdi">% do CDI</option>
+              </select>
+            </label>
+
+            <label>Prazo (meses)
+              <input id="months" type="number" value="12" />
+            </label>
+
+            <label>Valor investido (R$)
+              <input id="principal" type="number" value="10000" />
+            </label>
+
+            <label>CDI anual (%)
+              <input id="cdi" type="number" value="13.15" />
+            </label>
+
+            <button id="add-btn">Adicionar oferta</button>
+            <button id="clear-btn">Limpar ofertas</button>
+            <button id="sort-value">Ordenar por valor final</button>
+            <button id="export-csv">Exportar CSV</button>
+          </aside>
+        </div>
+      </section>
+    </main>
   </div>
+
   <script src="lci-lca.js"></script>
-  </body>
+</body>
 </html>
