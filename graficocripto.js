@@ -1,6 +1,6 @@
 new TradingView.widget(
 {
-    "width": "80%",
+    "width": "87%",
     "height": "90%",
     "symbol": "BINANCE:BTCBRL",
     "interval": "D",
@@ -14,8 +14,8 @@ new TradingView.widget(
     "container_id": "tradingview_f7a6a",
 
     "exchanges": [
+        "MERCADOBTC",
         "BINANCE",
-        "MERCADOBTC", 
         "COINBASE"
     ],
 
@@ -30,6 +30,14 @@ new TradingView.widget(
         {"proName": "BINANCE:XRPBRL", "title": "XRP / Real"},
         {"proName": "BINANCE:SOLBRL", "title": "Solana / Real"},
         {"proName": "BINANCE:DOGEBRL", "title": "Dogecoin / Real"}
-    ]
+    ],
+    
+    "watchlist": [
+        "BINANCE:BTCBRL",
+        "BINANCE:ETHBRL",
+        "BINANCE:XRPBRL",
+        "BINANCE:SOLBRL",
+        "BINANCE:DOGEBRL"
+  ]
 }
 );
