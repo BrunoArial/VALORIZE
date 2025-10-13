@@ -1,28 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotações Cripto</title>
-  <link rel="stylesheet" href="cdb.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Avançado de CDB - Calcule seu Investimento</title>
+    <link rel="stylesheet" href="cdb.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-  <header>
-    <div class="menu">
-      <a href="../index.html">Início</a>
-    </div>
-    <h1>Renda fixa</h1>
-    <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
-    <nav>
-        <a href="tesourodireto.html">Tesouro Direto</a>
-        <a href="lci-lca.html">LCI & LCA</a>
-        <a href="cdb.html">CDB</a>
-        <a href="cdi.html">CDI</a>
-    </nav>
-    </header>
-  </main>
-  </div>
-  <script src="cdb.js"></script>
-  </body>
+
+    <header>
+            <div class="menu">
+                <a href="../index.html">Início</a>
+            </div>
+            <h1>Renda Fixa</h1>
+            <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
+            <nav>
+                <a href="tesourodireto.html">Tesouro Direto</a>
+                <a href="lci-lca.html">LCI & LCA</a>
+                <a href="cdb.html">CDB</a>
+            </nav>
+        </header>
+
+    <main class="container">
+        <div class="simulador-layout">
+            <div class="painel-calculo">
+                <form id="cdb-form">
+                    <div class="input-group">
+                        <label for="valor-inicial">Quanto quer investir hoje? (R$)</label>
+                        <input type="number" id="valor-inicial" value="5000" placeholder="Ex: 5000">
+                    </div>
+                    <div class="input-group">
+                        <label for="aporte-mensal">Quanto quer investir por mês? (R$)</label>
+                        <input type="number" id="aporte-mensal" value="300" placeholder="Ex: 300">
+                    </div>
+                    <div class="input-group">
+                        <label for="prazo-meses">Por quanto tempo irá investir? (meses)</label>
+                        <input type="number" id="prazo-meses" value="36" placeholder="Ex: 24">
+                    </div>
+                    <hr class="divisor">
+                    <div class="input-group">
+                        <label for="rentabilidade-cdb">Rentabilidade do CDB (% do CDI)</label>
+                        <input type="number" id="rentabilidade-cdb" value="110" placeholder="Ex: 110">
+                    </div>
+                     <div class="input-group">
+                        <label for="taxa-di">Taxa DI (CDI) de Referência (% a.a.)</label>
+                        <input type="number" id="taxa-di" value="10.50" step="0.01" placeholder="Ex: 10.50">
+                    </div>
+                    <button type="submit" class="botao-calcular">Simular Investimento</button>
+                </form>
+            </div>
+
+            <div class="painel-resultados" id="secao-resultados">
+                <div id="resultados-placeholder">
+                    <h2>Preencha os dados ao lado para ver a sua simulação.</h2>
+                    <p>Descubra o potencial do seu dinheiro.</p>
+                </div>
+                <div id="resultados-conteudo" class="hidden">
+                    <div class="cards-resumo">
+                        <div class="card">
+                            <h4>Valor Bruto</h4>
+                            <p id="valor-bruto-final">R$ 0,00</p>
+                        </div>
+                        <div class="card">
+                            <h4>Imposto de Renda</h4>
+                            <p id="imposto-renda" class="negativo">- R$ 0,00</p>
+                        </div>
+                        <div class="card sucesso">
+                            <h4>Valor Líquido Final</h4>
+                            <p id="valor-liquido-final">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="grafico-container">
+                        <canvas id="grafico-cdb"></canvas>
+                    </div>
+                    <div class="detalhes-financeiros">
+                        <h3>Detalhes da Simulação</h3>
+                        <ul>
+                            <li><span>Total Investido (Aportes):</span> <strong id="total-investido">R$ 0,00</strong></li>
+                            <li><span>Juros Brutos Acumulados:</span> <strong id="juros-brutos">R$ 0,00</strong></li>
+                            <li><span>Alíquota de IR (Regra CDB):</span> <strong id="aliquota-ir">0%</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="cdb.js"></script>
+</body>
 </html>

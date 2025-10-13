@@ -48,7 +48,6 @@ nav a {
     margin: 0 10px;
 }
 
-/* --- MAIN LAYOUT --- */
 main {
     display: grid;
     grid-template-columns: 1fr;
@@ -68,7 +67,6 @@ main {
     }
 }
 
-/* --- CARDS --- */
 .card {
     background-color: var(--bg-secundario);
     border: 1px solid var(--cor-borda);
@@ -87,7 +85,6 @@ main {
     margin-top: 2rem;
 }
 
-/* --- FORMULÁRIO --- */
 #investment-form {
     display: flex;
     flex-direction: column;
@@ -138,7 +135,6 @@ main {
     cursor: pointer;
 }
 
-/* --- RESULTADOS --- */
 .result-details {
     display: flex;
     flex-direction: column;
@@ -197,14 +193,12 @@ main {
     border-style: dashed;
 }
 
-/* --- GRÁFICO --- */
 .chart-container {
     position: relative;
     height: 350px;
     width: 100%;
 }
 
-/* --- UTILITÁRIOS --- */
 .hidden {
     display: none;
 }

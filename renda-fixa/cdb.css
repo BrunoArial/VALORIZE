@@ -1,26 +1,13 @@
-:root 
-{
+:root {
     --fonte-titulos: 'Poppins', sans-serif;
     --texto: 'Inter', sans-serif;
+    --cor-sucesso: #28a745;
+    --cor-perigo: #dc3545;
     --cor-texto: #FFFFFF;
     --texto-secundario: #C5C6C7;
     --bg-principal: #0B0C10;
     --bg-secundario: #1F2833;
 }
-
-.menu{
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  padding: 8px 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 999;
-}   
 
 body 
 {
@@ -52,3 +39,151 @@ header h1 {
       margin: 0 10px;
       font-weight: 600;
     }
+
+nav a {
+    margin: 0 10px;
+}
+
+.cabecalho h1 {
+    margin: 0;
+    font-size: 2.25rem;
+}
+
+.cabecalho p {
+    margin: 5px 0 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.simulador-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.painel-calculo, .painel-resultados {
+    background-color: var(--bg-secundario);
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--texto-secundario);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(0, 82, 155, 0.1);
+}
+
+.divisor {
+    border: 0;
+    height: 1px;
+    margin: 30px 0;
+}
+
+.botao-calcular {
+    width: 100%;
+    background-color: #00B894;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#resultados-placeholder {
+    text-align: center;
+    padding: 40px;
+    color: var(--texto-secundario);
+}
+
+.hidden {
+    display: none;
+}
+
+.cards-resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.cards-resumo .card {
+    background-color: var(--bg-principal);
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.cards-resumo .card h4 {
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+    font-weight: 500;
+}
+
+.cards-resumo .card p {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.cards-resumo .card .negativo {
+    color: var(--cor-perigo);
+}
+
+.cards-resumo .card.sucesso p {
+    color: var(--cor-sucesso);
+}
+
+.grafico-container {
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+.detalhes-financeiros h3 {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.detalhes-financeiros ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.detalhes-financeiros li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.detalhes-financeiros li:last-child {
+    border-bottom: none;
+}
+
+.detalhes-financeiros span {
+    color: var(--texto-secundario);
+}

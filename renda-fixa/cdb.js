@@ -1,0 +1,141 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Referências aos elementos do DOM
+    const form = document.getElementById('cdb-form');
+    const resultadosPlaceholder = document.getElementById('resultados-placeholder');
+    const resultadosConteudo = document.getElementById('resultados-conteudo');
+
+    // Elementos de resultado
+    const valorBrutoFinalEl = document.getElementById('valor-bruto-final');
+    const impostoRendaEl = document.getElementById('imposto-renda');
+    const valorLiquidoFinalEl = document.getElementById('valor-liquido-final');
+    const totalInvestidoEl = document.getElementById('total-investido');
+    const jurosBrutosEl = document.getElementById('juros-brutos');
+    const aliquotaIrEl = document.getElementById('aliquota-ir');
+
+    let graficoCdb = null;
+
+    // Função para formatar valores em moeda
+    const formatarMoeda = (valor) => {
+        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    };
+
+    // Função que retorna a alíquota do IR conforme a regra do CDB
+    const obterAliquotaIR = (prazoMeses) => {
+        const dias = prazoMeses * 30;
+        if (dias <= 180) return 0.225;
+        if (dias <= 360) return 0.20;
+        if (dias <= 720) return 0.175;
+        return 0.15;
+    };
+
+    // Função principal para simular o investimento
+    const simularInvestimento = (evento) => {
+        evento.preventDefault();
+
+        // Leitura dos valores do formulário
+        const valorInicial = parseFloat(document.getElementById('valor-inicial').value) || 0;
+        const aporteMensal = parseFloat(document.getElementById('aporte-mensal').value) || 0;
+        const prazoMeses = parseInt(document.getElementById('prazo-meses').value) || 0;
+        const rentabilidadeCdb = parseFloat(document.getElementById('rentabilidade-cdb').value) || 0;
+        const taxaDi = parseFloat(document.getElementById('taxa-di').value) || 0;
+
+        if (prazoMeses <= 0 || rentabilidadeCdb <= 0 || taxaDi <= 0) {
+            alert("Por favor, preencha o prazo, a rentabilidade e a taxa DI com valores válidos.");
+            return;
+        }
+
+        // --- Lógica de Cálculo ---
+        const taxaDiaria = Math.pow(1 + (taxaDi / 100), 1 / 252) - 1;
+        const taxaEfetivaDiaria = taxaDiaria * (rentabilidadeCdb / 100);
+
+        let valorAcumulado = valorInicial;
+        let totalAportado = valorInicial;
+
+        const dadosGrafico = {
+            labels: [],
+            investido: [],
+            juros: []
+        };
+
+        for (let mes = 1; mes <= prazoMeses; mes++) {
+            if (mes > 1) {
+                valorAcumulado += aporteMensal;
+                totalAportado += aporteMensal;
+            }
+            const diasUteisMes = 21; // Média de dias úteis num mês
+            valorAcumulado *= Math.pow(1 + taxaEfetivaDiaria, diasUteisMes);
+
+            // Armazenar dados para o gráfico a cada 6 meses ou no último mês
+            if (mes % 6 === 0 || mes === prazoMeses) {
+                dadosGrafico.labels.push(`${mes}m`);
+                dadosGrafico.investido.push(totalAportado);
+                dadosGrafico.juros.push(valorAcumulado - totalAportado);
+            }
+        }
+
+        const jurosBrutos = valorAcumulado - totalAportado;
+        const aliquotaIr = obterAliquotaIR(prazoMeses);
+        const impostoDevido = jurosBrutos * aliquotaIr;
+        const valorLiquido = valorAcumulado - impostoDevido;
+
+        // --- Atualizar a Interface ---
+        resultadosPlaceholder.classList.add('hidden');
+        resultadosConteudo.classList.remove('hidden');
+
+        valorBrutoFinalEl.textContent = formatarMoeda(valorAcumulado);
+        impostoRendaEl.textContent = `- ${formatarMoeda(impostoDevido)}`;
+        valorLiquidoFinalEl.textContent = formatarMoeda(valorLiquido);
+        totalInvestidoEl.textContent = formatarMoeda(totalAportado);
+        jurosBrutosEl.textContent = formatarMoeda(jurosBrutos);
+        aliquotaIrEl.textContent = `${(aliquotaIr * 100).toFixed(1)}%`;
+
+        renderizarGrafico(dadosGrafico);
+    };
+
+    const renderizarGrafico = (dados) => {
+        const ctx = document.getElementById('grafico-cdb').getContext('2d');
+        if (graficoCdb) {
+            graficoCdb.destroy();
+        }
+        graficoCdb = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dados.labels,
+                datasets: [
+                    {
+                        label: 'Total Investido',
+                        data: dados.investido,
+                        backgroundColor: '#a9b8c5',
+                    },
+                    {
+                        label: 'Juros',
+                        data: dados.juros,
+                        backgroundColor: 'var(--cor-sucesso)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.dataset.label}: ${formatarMoeda(context.raw)}`
+                        }
+                    }
+                },
+                scales: {
+                    x: { stacked: true },
+                    y: {
+                        stacked: true,
+                        ticks: {
+                            callback: (value) => `R$ ${value / 1000}k`
+                        }
+                    }
+                }
+            }
+        });
+    };
+
+    form.addEventListener('submit', simularInvestimento);
+});
