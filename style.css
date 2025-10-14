@@ -1,7 +1,6 @@
 :root {
     --fonte-titulos: 'Poppins', sans-serif;
     --texto: 'Inter', sans-serif;
-
     --cor-primaria: #1E3A8A;       
     --cor-secundaria: #2563EB;   
     --cor-destaque: #FBBF24;     
@@ -18,7 +17,6 @@ body {
     overflow: hidden;
 }
 
-/* A estrutura de tela cheia foi mantida, pois faz parte da identidade visual */
 #initial-menu-overlay {
     position: fixed;
     top: 0;
@@ -46,7 +44,6 @@ body {
 
 .welcome-title {
     font-family: var(--fonte-titulos);
-    /* ALTERAÇÃO: Trocado 3.5rem por um valor fixo em pixels */
     font-size: 56px; 
     font-weight: 700;
     color: #FFFFFF;
@@ -90,7 +87,6 @@ body {
     display: inline-block;
     color: #E0E7FF;
     text-decoration: none;
-    /* ALTERAÇÃO: Trocado 1.5rem por um valor fixo em pixels */
     font-size: 24px;
     padding: 12px 0;
     position: relative;
@@ -117,7 +113,6 @@ body {
     transform: scale(1.05);
 }
 
-/* As animações não se relacionam com responsividade, então foram mantidas */
 @keyframes fadeInDown {
     from { opacity: 0; transform: translateY(-30px); }
     to { opacity: 1; transform: translateY(0); }
