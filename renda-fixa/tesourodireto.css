@@ -110,7 +110,7 @@ main {
     padding: 0.75rem;
     background-color: #FFFFFF;
     border: 1px solid var(--cor-borda);
-    color: var(--cor-texto);
+    color: #0B0C10;
 }
 
 .form-input:focus, .form-select:focus {
@@ -129,7 +129,7 @@ main {
     border-radius: 0.5rem;
     font-size: 1.125rem;
     background-color: var(--cor-destaque);
-    color: var(--bg-principal);
+    color: var(--texto);
     font-weight: 700;
     border: none;
     cursor: pointer;

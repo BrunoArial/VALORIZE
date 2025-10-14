@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             datasets.unshift({
                 label: 'Portfólio Total',
                 data: total.portfolioHistory,
-                borderColor: 'rgba(0, 0, 0, 1)',
+                borderColor: 'rgba(12, 143, 0, 0.9)',
                 backgroundColor: 'rgba(0, 0, 0, 0.05)',
                 borderWidth: 3,
                 pointRadius: 0,
