@@ -4,27 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cotações Cripto</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="areacripto.css">
 </head>
 <body>
-<div class="tradingview-widget-container" style="height:500px; width:100%;">
-      <div class="tradingview-widget-container__widget"></div>
-  <header>
-    <div class="menu">
-      <a href="index.html">Início</a>
-    </div>
-  </header>
-  
-  <main class="container">
-    <h1>Cotações Criptomoedas</h1>
 
-    <div id="tradingview_f7a6a"></div> 
+  <div class="container">
+    <header>
+      <div class="menu">
+        <a href="index.html">Início</a>
+      </div>
+      <h1>Cotações de Criptomoedas</h1>
+      <p>Acompanhe os principais ativos do mercado em tempo real</p>
+    </header>
     
-    <div id="coins"></div>
-  </main>
+    <main>
+        <section class="widget-container">
+            <div id="tradingview_f7a6a"></div>
+        </section>
+
+        <div id="coins"></div>
+    </main>
+
+    <footer>
+      <p>Dados fornecidos pela API CoinGecko. Os valores podem ter um pequeno atraso.</p>
+    </footer>
+  </div>
 
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script src="graficocripto.js"></script>
   <script src="areacripto.js"></script>
-  </body>
+</body>
 </html>

@@ -1,7 +1,7 @@
 new TradingView.widget(
 {
-    "width": "87%",
-    "height": "90%",
+    "width": "100%",
+    "height": "400px",
     "symbol": "BINANCE:BTCBRL",
     "interval": "D",
     "timezone": "Etc/UTC",
