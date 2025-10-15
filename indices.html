@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Renda fixa</title>
-  <link rel="stylesheet" href="indices.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Índices Econômicos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="indices.css">
 </head>
 <body>
     <div class="container">
-  <header>
-    <div class="menu">
-      <a href="index.html">Início</a>
-    </div>
-    <h1>índices Econômicos</h1>
-    <p>Analise a economia nacional baseado nos seus principais índices</p>
-    </header>
-    <p class="nacionais">Índices Nacionais</p>
-  <main id="grade-nacional">
-     
-  </main>
-    <p class="nacionais">Índices Globais</p>
-  <main id="grade-global">   
+        <header>
+            <div class="menu">
+                <a href="index.html">Início</a>
+            </div>
+            <h1>Índices Econômicos</h1>
+            <p>Acompanhe em tempo real os principais indicadores do Brasil e do mundo.</p>
+        </header>
 
-  </main>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="indices.js"></script>
-  </body>
+        <main>
+            <section class="index-section">
+                <h2>Índices Nacionais</h2>
+                <div id="grade-nacional" class="index-grid"></div>
+            </section>
+
+            <section class="index-section">
+                <h2>Índices Globais</h2>
+                <div id="grade-global" class="index-grid"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Os valores são atualizados em tempo real e servem apenas como referência.</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="indices.js"></script>
+</body>
 </html>

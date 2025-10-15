@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const card = document.createElement('div');
             card.id = `card-${index.id}`;
-            card.className = 'quote-card'; // CORRIGIDO: Usando a classe correta do CSS
+            card.className = 'quote-card';
 
             card.innerHTML = `
                 <div class="card-header">
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createChart(index) {
         const ctx = document.getElementById(`chart-${index.id}`).getContext('2d');
         const isPositive = index.chartData[index.chartData.length - 1] > index.chartData[0];
-        const color = isPositive ? '#31a24c' : '#fa383e';
+        const color = isPositive ? '#16A34A' : '#DC2626';
 
         charts[index.id] = new Chart(ctx, {
             type: 'line',
@@ -114,17 +114,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 newData.shift();
                 
                 const chartIsPositive = newData[newData.length - 1] > newData[0];
-                chart.data.datasets[0].borderColor = chartIsPositive ? '#31a24c' : '#fa383e';
+                chart.data.datasets[0].borderColor = chartIsPositive ? '#16A34A' : '#DC2626';
                 chart.update('none');
             }
         });
     }
 
-    // Renderiza os dois grids
     renderGrid(gradeNacional, nationalIndices);
     renderGrid(gradeGlobal, globalIndices);
 
-    // Inicia a atualização de ambos
     setInterval(() => {
         updateQuotes(nationalIndices);
         updateQuotes(globalIndices);

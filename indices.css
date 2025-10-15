@@ -1,104 +1,122 @@
-:root 
-{
+:root {
     --fonte-titulos: 'Poppins', sans-serif;
     --texto: 'Inter', sans-serif;
-    --cor-texto: #FFFFFF;
-    --texto-secundario: #C5C6C7;
-    --bg-principal: #0B0C10;
-    --bg-secundario: #1F2833;
+    --cor-primaria: #1E3A8A;
+    --cor-secundaria: #2563EB;
+    --cor-destaque: #FBBF24;
+    --bg-principal: #F9FAFB;
+    --cor-texto: #111827;
+    --cor-texto-secundario: #4B5563;
+    --cor-sucesso: #16A34A;
+    --cor-erro: #DC2626;
+    --cor-borda: #E5E7EB;
 }
 
 body {
-    font-family: var(--texto);
+    margin: 0; padding: 0;
     background-color: var(--bg-principal);
     color: var(--cor-texto);
-    margin: 0;
+    font-family: var(--texto);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
+}
+
+.menu a {
+    position: fixed; top: 10px; left: 50%;
+    transform: translateX(-50%); background: var(--cor-primaria);
+    color: white; padding: 10px 22px; border-radius: 8px;
+    font-family: var(--fonte-titulos); font-weight: 600;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    z-index: 999; transition: all 0.3s ease; text-decoration: none;
+}
+.menu a:hover {
+    background: var(--cor-destaque);
+    transform: translateX(-50%) scale(1.05);
 }
 
 header {
-    text-align: center;
-    margin-bottom: 30px;
+    text-align: center; margin-bottom: 2.5rem; margin-top: 4rem;
 }
-
 header h1 {
-    margin: 0;
-    font-size: 2em;
+    font-family: var(--fonte-titulos); color: var(--cor-primaria);
+    font-size: 2.2rem; margin-bottom: 0.5rem;
+}
+header p {
+    color: var(--cor-texto-secundario); font-size: 1.1rem;
+    max-width: 600px; margin: 0 auto;
 }
 
-header p {
-    margin: 5px 0 0;
-    color: #606770;
+.index-section {
+    margin-bottom: 3rem;
 }
-.nacionais {
-    text-align: center;
-    font-size: 2em;
+.index-section h2 {
     font-family: var(--fonte-titulos);
-    margin-bottom: 20px;
-    color: var(--cor-texto);
+    color: var(--cor-primaria);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
-#grade-nacional {
+
+.index-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-#grade-global {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    gap: 1.5rem;
 }
 
 .quote-card {
-    background-color: var(--bg-secundario);
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--cor-borda);
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+    align-items: flex-start;
+    margin-bottom: 1rem;
 }
 
 .index-name {
-    font-size: 1.2em;
-    font-weight: bold;
+    font-family: var(--fonte-titulos);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cor-primaria);
 }
-
 .index-currency {
-    font-size: 0.9em;
-    color: #606770;
+    font-size: 0.85rem;
+    color: var(--cor-texto-secundario);
 }
 
 .index-value {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--cor-texto);
 }
 
 .index-change {
     text-align: right;
 }
-
 .change-value {
-    font-weight: bold;
-    font-size: 1.1em;
+    font-weight: 600;
+    font-size: 1rem;
 }
 
-.positive {
-    color: #31a24c;
-}
-
-.negative {
-    color: #fa383e;
-}
+.positive { color: var(--cor-sucesso); }
+.negative { color: var(--cor-erro); }
 
 .chart-container {
-    height: 80px;
+    height: 60px;
+}
+
+footer {
+    text-align: center; margin-top: 2rem; font-size: 0.9rem;
+    color: #6B7280;
 }
