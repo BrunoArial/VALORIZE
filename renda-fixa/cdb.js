@@ -95,12 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     {
                         label: 'Total Investido',
                         data: dados.investido,
-                        backgroundColor: '#a9b8c5',
+                        backgroundColor: '#1E3A8A',
                     },
                     {
                         label: 'Juros',
                         data: dados.juros,
-                        backgroundColor: 'var(--cor-sucesso)',
+                        backgroundColor: '#16A34A',
                     }
                 ]
             },
@@ -112,13 +112,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         callbacks: {
                             label: (context) => `${context.dataset.label}: ${formatarMoeda(context.raw)}`
                         }
+                    },
+                    legend: {
+                        labels: {
+                            font: { family: "'Inter', sans-serif" }
+                        }
                     }
                 },
                 scales: {
-                    x: { stacked: true },
+                    x: { 
+                        stacked: true,
+                        ticks: { font: { family: "'Inter', sans-serif" }}
+                    },
                     y: {
                         stacked: true,
                         ticks: {
+                            font: { family: "'Inter', sans-serif" },
                             callback: (value) => `R$ ${value / 1000}k`
                         }
                     }
