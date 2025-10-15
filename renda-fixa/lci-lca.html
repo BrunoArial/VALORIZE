@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LCI & LCA - Comparador</title>
-  <link rel="stylesheet" href="lci-lca.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCI & LCA - Comparador</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="lci-lca.css">
 </head>
 <body>
-  <div class="container">
     <div class="container">
         <header>
             <div class="menu">
                 <a href="../index.html">Início</a>
             </div>
-            <h1>Renda Fixa</h1>
-            <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
-            <nav>
+            <h1>Comparador de Renda Fixa</h1>
+            <p>Compare as melhores ofertas de LCI e LCA do mercado.</p>
+            <nav class="sub-nav">
                 <a href="tesourodireto.html">Tesouro Direto</a>
-                <a href="lci-lca.html">LCI & LCA</a>
+                <a href="lci-lca.html" class="active">LCI & LCA</a>
                 <a href="cdb.html">CDB</a>
             </nav>
         </header>
 
-    <main>
-      <section>
-        <h2>Comparador de LCI / LCA</h2>
-        <p>Adicione ofertas e veja qual tem o melhor rendimento final.</p>
+        <main>
+            <div class="column-controls">
+                <div class="card">
+                    <h2>Adicionar Oferta</h2>
+                    <form id="controls-form">
+                        <div class="form-group">
+                            <label for="bank">Banco / Emissor</label>
+                            <input id="bank" placeholder="Ex: Banco X">
+                        </div>
+                        <div class="form-group">
+                            <label for="kind">Tipo</label>
+                            <select id="kind">
+                                <option value="LCI">LCI</option>
+                                <option value="LCA">LCA</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rate">Taxa / % do CDI</label>
+                            <input id="rate" placeholder="Ex: 8.5 ou 95">
+                        </div>
+                        <div class="form-group">
+                            <label for="rate-type">Formato da taxa</label>
+                            <select id="rate-type">
+                                <option value="fixed">Taxa anual fixa (%)</option>
+                                <option value="of-cdi">% do CDI</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="months">Prazo (meses)</label>
+                            <input id="months" type="number" value="12">
+                        </div>
+                        <div class="form-group">
+                            <label for="principal">Valor investido (R$)</label>
+                            <input id="principal" type="number" value="10000">
+                        </div>
+                        <div class="form-group">
+                            <label for="cdi">CDI anual (%)</label>
+                            <input id="cdi" type="number" value="13.15">
+                        </div>
+                        <button type="button" id="add-btn" class="btn-primary">Adicionar</button>
+                        <div class="button-group">
+                            <button type="button" id="sort-value" class="btn-secondary">Ordenar</button>
+                            <button type="button" id="export-csv" class="btn-secondary">Exportar</button>
+                            <button type="button" id="clear-btn" class="btn-danger">Limpar Tudo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-        <div class="grid">
-          <div>
-            <table id="offers-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Banco</th>
-                  <th>Tipo</th>
-                  <th>Remuneração</th>
-                  <th>Prazo (meses)</th>
-                  <th>Valor final (R$)</th>
-                  <th>Retorno (%)</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-
-            <p id="summary"></p>
-          </div>
-
-          <aside class="controls">
-            <h3>Adicionar oferta</h3>
-
-            <label>Banco / Emissor
-              <input id="bank" placeholder="Ex: Banco X" />
-            </label>
-
-            <label>Tipo
-              <select id="kind">
-                <option value="LCI">LCI</option>
-                <option value="LCA">LCA</option>
-              </select>
-            </label>
-
-            <label>Taxa / % do CDI
-              <input id="rate" placeholder="Ex: 8.5 ou 95" />
-            </label>
-
-            <label>Formato da taxa
-              <select id="rate-type">
-                <option value="fixed">Taxa anual fixa (%)</option>
-                <option value="of-cdi">% do CDI</option>
-              </select>
-            </label>
-
-            <label>Prazo (meses)
-              <input id="months" type="number" value="12" />
-            </label>
-
-            <label>Valor investido (R$)
-              <input id="principal" type="number" value="10000" />
-            </label>
-
-            <label>CDI anual (%)
-              <input id="cdi" type="number" value="13.15" />
-            </label>
-
-            <button id="add-btn">Adicionar oferta</button>
-            <button id="clear-btn">Limpar ofertas</button>
-            <button id="sort-value">Ordenar por valor final</button>
-            <button id="export-csv">Exportar CSV</button>
-          </aside>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script src="lci-lca.js"></script>
+            <div class="column-results">
+                <div class="card">
+                    <h2>Comparativo</h2>
+                    <div class="table-container">
+                        <table id="offers-table">
+                            <thead>
+                                <tr>
+                                    <th>Banco</th>
+                                    <th>Remuneração</th>
+                                    <th>Prazo</th>
+                                    <th>Valor Final</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <p id="summary"></p>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>LCI e LCA são investimentos isentos de Imposto de Renda para pessoa física.</p>
+        </footer>
+    </div>
+    <script src="lci-lca.js"></script>
 </body>
 </html>
