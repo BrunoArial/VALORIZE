@@ -3,25 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Renda fixa</title>
+  <title>Renda Fixa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="rendafixa.css">
 </head>
 <body>
     <div class="container">
-  <header>
-    <div class="menu">
-      <a href="index.html">Início</a>
+      <header>
+        <div class="menu">
+          <a href="index.html">Início</a>
+        </div>
+        <h1>Renda Fixa </h1>
+        <p>Simule investimentos nas principais categorias de renda fixa.</p>
+      </header>
+      
+      <main>
+        <nav class="options-menu">
+            <a href="renda-fixa/tesourodireto.html" class="option-card">
+                <h2>Tesouro Direto</h2>
+                <p>Simule títulos públicos como Selic, Prefixado e IPCA+.</p>
+            </a>
+            <a href="renda-fixa/lci-lca.html" class="option-card">
+                <h2>LCI & LCA</h2>
+                <p>Investimentos isentos de Imposto de Renda.</p>
+            </a>
+            <a href="renda-fixa/cdb.html" class="option-card">
+                <h2>CDB</h2>
+                <p>Compare títulos de bancos com diferentes rentabilidades.</p>
+            </a>
+        </nav>
+      </main>
+
+      <footer>
+        <p>As simulações são para fins educacionais e não constituem recomendação de investimento.</p>
+      </footer>
     </div>
-    <h1>Renda fixa</h1>
-    <p>Simule investimentos em renda fixa com diferentes taxas e prazos.</p>
-    <nav>
-        <a href="renda-fixa/tesourodireto.html">Tesouro Direto</a>
-        <a href="renda-fixa/lci-lca.html">LCI & LCA</a>
-        <a href="renda-fixa/cdb.html">CDB</a>
-    </nav>
-    </header>
-  </main>
-  </div>
-  <script src="rendafixa.js"></script>
-  </body>
+    <script src="rendafixa.js"></script>
+</body>
 </html>
