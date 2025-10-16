@@ -82,6 +82,7 @@ main {
 .card {
     background-color: white; border-radius: 12px;
     padding: 2rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    height: 100%;
 }
 .card h2 {
     font-family: var(--fonte-titulos); color: var(--cor-primaria);
@@ -124,18 +125,11 @@ button:active { transform: scale(0.98); }
 .btn-primary:hover { background-color: #1D4ED8; }
 
 .button-group {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 0.75rem; margin-top: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem; 
+    margin-top: 0.5rem;
 }
-.button-group .btn-danger {
-    grid-column: 1 / -1;
-}
-
-.btn-secondary {
-    background-color: #F3F4F6; color: var(--cor-texto-secundario);
-    border: 1px solid var(--cor-borda);
-}
-.btn-secondary:hover { background-color: #E5E7EB; }
 
 .btn-danger {
     background-color: #FEE2E2; color: var(--cor-erro);
@@ -159,6 +153,7 @@ th {
     font-family: var(--fonte-titulos);
     color: var(--cor-primaria);
     font-size: 0.9rem;
+    text-transform: uppercase;
 }
 td {
     font-size: 0.95rem;
@@ -169,27 +164,24 @@ tbody tr:last-child td {
 tbody tr:hover {
     background-color: #EFF6FF;
 }
-
 tr.best {
-    background-color: #FEF9C3;
+    background-color: #FEF9C3; /* Amarelo destaque para a melhor oferta */
     font-weight: 600;
 }
+tr.best td:first-child::before {
+    content: '⭐ ';
+}
 
-td .del {
-    background: none; color: var(--cor-erro);
-    padding: 4px 8px; text-decoration: underline;
+td .del-btn {
+    background: none;
+    color: var(--cor-erro);
+    padding: 4px;
     font-size: 0.85rem;
+    border-radius: 4px;
 }
-td .del:hover { background-color: #FEE2E2; }
-
-#summary {
-    margin-top: 1.5rem;
-    padding: 12px;
-    background-color: #F3F4F6;
-    border-radius: 8px;
-    font-weight: 600;
-    text-align: center;
-    color: var(--cor-primaria);
+td .del-btn:hover {
+    background-color: #FEE2E2;
+    text-decoration: underline;
 }
 
 footer {

@@ -22,7 +22,7 @@ body {
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -82,6 +82,7 @@ main {
 .card {
     background-color: white; border-radius: 12px;
     padding: 2rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    height: 100%;
 }
 .card h2 {
     font-family: var(--fonte-titulos); color: var(--cor-primaria);
@@ -89,94 +90,76 @@ main {
     padding-bottom: 0.5rem; margin: 0 0 1.5rem 0;
 }
 
-form hr {
-    border: none; border-top: 1px solid var(--cor-borda); margin: 1rem 0;
+#controls-form {
+    display: flex; flex-direction: column; gap: 1.25rem;
 }
 .form-group {
-    display: flex; flex-direction: column; margin-bottom: 1.25rem;
+    display: flex; flex-direction: column;
 }
 .form-group label {
     font-weight: 600; margin-bottom: 0.5rem; color: var(--cor-primaria);
+    font-size: 0.9rem;
 }
-input {
-    padding: 12px; font-size: 1rem; border: 1px solid #D1D5DB;
+input, select {
+    width: 100%;
+    padding: 10px; font-size: 1rem; border: 1px solid #D1D5DB;
     border-radius: 6px; background-color: #fff;
     transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
 }
-input:focus {
+input:focus, select:focus {
     outline: none; border-color: var(--cor-secundaria);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
+
 button {
-    width: 100%;
-    padding: 14px; background-color: var(--cor-secundaria);
-    color: white; border: none; border-radius: 8px; font-size: 1.1rem;
-    font-weight: 600; cursor: pointer; margin-top: 0.5rem;
+    padding: 12px; border-radius: 6px; font-size: 1rem;
+    font-weight: 600; cursor: pointer; border: none;
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
-button:hover { background-color: var(--cor-destaque); }
 button:active { transform: scale(0.98); }
 
-#resultados-placeholder {
-    text-align: center;
+.btn-primary {
+    background-color: var(--cor-secundaria); color: white;
+    margin-top: 0.5rem;
 }
-#resultados-placeholder p {
-    color: var(--cor-texto-secundario);
-}
-.hidden { display: none; }
+.btn-primary:hover { background-color: #1D4ED8; }
 
-.cards-resumo {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+#resultado-detalhes {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    margin-bottom: 2rem;
 }
-.summary-card {
-    background-color: #F9FAFB;
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid var(--cor-borda);
+.resultado-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--cor-borda);
 }
-.summary-card h4 {
-    margin: 0 0 0.5rem;
-    font-size: 0.9rem;
-    color: var(--cor-texto-secundario);
-    font-weight: 600;
-}
-.summary-card p {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-.summary-card .negative-value {
-    color: var(--cor-erro);
-}
-.summary-card.highlight {
-    background-color: #F0FDF4;
-    border-color: var(--cor-sucesso);
-}
-.summary-card.highlight p {
-    color: var(--cor-sucesso);
-}
-
-.grafico-container {
-    height: 280px;
-    margin-bottom: 2rem;
-}
-
-.detalhes-financeiros ul {
-    list-style: none; padding: 0; margin: 0;
-}
-.detalhes-financeiros li {
-    display: flex; justify-content: space-between;
-    padding: 12px 0; border-bottom: 1px solid var(--cor-borda);
-}
-.detalhes-financeiros li:last-child {
+.resultado-item:last-child {
     border-bottom: none;
 }
-.detalhes-financeiros span {
+.resultado-item span {
     color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+}
+.resultado-item strong {
+    font-size: 1.1rem;
+    color: var(--cor-texto);
+}
+.resultado-item .ir-value {
+    color: var(--cor-erro);
+}
+.resultado-item.total {
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+    border-top: 2px solid var(--cor-borda);
+}
+.resultado-item.total strong {
+    color: var(--cor-sucesso);
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 
 footer {

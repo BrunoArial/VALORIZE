@@ -1,139 +1,85 @@
-const offers = [];
-const tbody = document.querySelector('#offers-table tbody');
-const summary = document.getElementById('summary');
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('controls-form');
+    const tableBody = document.querySelector('#offers-table tbody');
+    const clearBtn = document.getElementById('clear-btn');
 
-function parseNumber(v) {
-  const n = Number(String(v).replace(',', '.'));
-  return isNaN(n) ? 0 : n;
-}
+    let offers = [];
 
-function calcFinal(principal, annualRatePct, months) {
-  const annual = parseNumber(annualRatePct) / 100;
-  const monthly = annual / 12;
-  return principal * Math.pow(1 + monthly, months);
-}
+    const formatCurrency = (value) => {
+        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    };
 
-function addOffer(o) {
-  offers.push(o);
-  render();
-}
+    const renderTable = () => {
+        tableBody.innerHTML = '';
 
-function removeOffer(i) {
-  offers.splice(i, 1);
-  render();
-}
+        if (offers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhuma oferta adicionada.</td></tr>`;
+            return;
+        }
 
-function render() {
-  tbody.innerHTML = '';
+        const bestOfferValue = Math.max(...offers.map(offer => offer.finalValue));
 
-  if (offers.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8">Nenhuma oferta adicionada.</td></tr>';
-    summary.textContent = '';
-    return;
-  }
+        offers.forEach((offer, index) => {
+            const isBest = offer.finalValue === bestOfferValue;
+            const row = document.createElement('tr');
+            if (isBest) {
+                row.classList.add('best');
+            }
+            row.innerHTML = `
+                <td>${offer.bank} (${offer.kind})</td>
+                <td>${offer.rate}% do CDI</td>
+                <td>${offer.months} meses</td>
+                <td>${formatCurrency(offer.finalValue)}</td>
+                <td><button class="del-btn" data-index="${index}">Remover</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    };
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-  offers.forEach((o, idx) => {
-    const tr = document.createElement('tr');
-    const final = calcFinal(o.principal, o.annualRatePct, o.months);
-    const retornoPct = (final / o.principal - 1) * 100;
+        const bank = document.getElementById('bank').value;
+        const kind = document.getElementById('kind').value;
+        const rate = parseFloat(document.getElementById('rate').value);
+        const months = parseInt(document.getElementById('months').value);
+        const principal = parseFloat(document.getElementById('principal').value);
+        const cdi = parseFloat(document.getElementById('cdi').value) / 100;
 
-    tr.innerHTML = `
-      <td>${idx + 1}</td>
-      <td>${o.bank}</td>
-      <td>${o.kind}</td>
-      <td>${o.remunLabel}</td>
-      <td>${o.months}</td>
-      <td>R$ ${final.toFixed(2)}</td>
-      <td>${retornoPct.toFixed(2)}%</td>
-      <td><button data-idx="${idx}" class="del">Remover</button></td>
-    `;
-    tr.dataset.final = final;
-    tbody.appendChild(tr);
-  });
+        if (!bank || isNaN(rate) || isNaN(months) || isNaN(principal) || isNaN(cdi)) {
+            alert('Por favor, preencha todos os campos com valores válidos.');
+            return;
+        }
 
-  const rows = Array.from(tbody.querySelectorAll('tr'));
-  let bestVal = -Infinity, bestIdx = -1;
-  rows.forEach((r, i) => {
-    const val = Number(r.dataset.final);
-    if (val > bestVal) { bestVal = val; bestIdx = i; }
-  });
-  rows.forEach((r, i) => r.classList.toggle('best', i === bestIdx));
+        const effectiveAnnualRate = cdi * (rate / 100);
+        const effectiveMonthlyRate = Math.pow(1 + effectiveAnnualRate, 1 / 12) - 1;
+        const finalValue = principal * Math.pow(1 + effectiveMonthlyRate, months);
 
-  const best = bestVal.toFixed(2);
-  summary.textContent = `Melhor valor final: R$ ${best}`;
+        offers.push({
+            id: Date.now(),
+            bank,
+            kind,
+            rate,
+            months,
+            principal,
+            finalValue
+        });
 
-  tbody.querySelectorAll('.del').forEach(btn => {
-    btn.addEventListener('click', () => removeOffer(Number(btn.dataset.idx)));
-  });
-}
+        renderTable();
+        document.getElementById('bank').value = '';
+        document.getElementById('bank').focus();
+    });
 
-document.getElementById('add-btn').addEventListener('click', () => {
-  const bank = document.getElementById('bank').value.trim() || '—';
-  const kind = document.getElementById('kind').value;
-  const rateRaw = document.getElementById('rate').value.trim();
-  const rateType = document.getElementById('rate-type').value;
-  const months = parseNumber(document.getElementById('months').value);
-  const principal = parseNumber(document.getElementById('principal').value);
-  const cdi = parseNumber(document.getElementById('cdi').value);
+    clearBtn.addEventListener('click', () => {
+        offers = [];
+        renderTable();
+    });
 
-  if (!rateRaw) {
-    alert('Informe uma taxa válida.');
-    return;
-  }
-
-  let annualRatePct = 0, remunLabel = '';
-  if (rateType === 'fixed') {
-    annualRatePct = parseNumber(rateRaw);
-    remunLabel = annualRatePct + '% a.a. (fixa)';
-  } else {
-    const pctOfCdi = parseNumber(rateRaw);
-    annualRatePct = pctOfCdi / 100 * cdi;
-    remunLabel = pctOfCdi + '% do CDI (' + cdi + '% a.a.)';
-  }
-
-  addOffer({ bank, kind, annualRatePct, remunLabel, months, principal });
-  document.getElementById('bank').value = '';
-  document.getElementById('rate').value = '';
+    tableBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('del-btn')) {
+            const indexToRemove = parseInt(e.target.dataset.index, 10);
+            offers.splice(indexToRemove, 1);
+            renderTable();
+        }
+    });
+    renderTable();
 });
-
-document.getElementById('clear-btn').addEventListener('click', () => {
-  if (confirm('Deseja limpar todas as ofertas?')) {
-    offers.length = 0;
-    render();
-  }
-});
-
-document.getElementById('sort-value').addEventListener('click', () => {
-  offers.sort((a, b) =>
-    calcFinal(b.principal, b.annualRatePct, b.months) -
-    calcFinal(a.principal, a.annualRatePct, a.months)
-  );
-  render();
-});
-
-document.getElementById('export-csv').addEventListener('click', () => {
-  if (offers.length === 0) {
-    alert('Nenhuma oferta para exportar.');
-    return;
-  }
-
-  const header = ['Banco', 'Tipo', 'Remuneração', 'Prazo(m)', 'Principal', 'ValorFinal', 'Retorno(%)'];
-  const lines = [header.join(',')];
-  offers.forEach(o => {
-    const final = calcFinal(o.principal, o.annualRatePct, o.months);
-    const retorno = ((final / o.principal) - 1) * 100;
-    lines.push([`"${o.bank}"`, o.kind, `"${o.remunLabel}"`, o.months, o.principal.toFixed(2), final.toFixed(2), retorno.toFixed(2)].join(','));
-  });
-
-  const blob = new Blob([lines.join('\\n')], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'ofertas_lci_lca.csv';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-});
-
-render();

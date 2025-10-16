@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Tesouro Direto</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Tesouro Direto - Simulador de Rendimentos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -17,67 +16,54 @@
                 <a href="../index.html">Início</a>
             </div>
             <h1>Simulador de Renda Fixa</h1>
-            <p>Calcule a rentabilidade dos seus investimentos.</p>
+            <p>Calcule o rendimento do seu investimento no Tesouro Direto.</p>
             <nav class="sub-nav">
-                <a href="tesourodireto.html" class="active">Tesouro Direto</a>
+                <a href="tesouro.html" class="active">Tesouro Direto</a>
                 <a href="lci-lca.html">LCI & LCA</a>
                 <a href="cdb.html">CDB</a>
             </nav>
         </header>
-        
-        <main>
-            <div class="column-simulator">
-                <div class="card">
-                    <h2>Parâmetros da Simulação</h2>
-                    <form id="investment-form">
-                        <div class="form-group">
-                            <label for="initial-amount">Valor do Aporte (R$)</label>
-                            <input type="number" id="initial-amount" placeholder="Ex: 1000" min="1" step="1" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="investment-years">Prazo (em anos)</label>
-                            <input type="number" id="investment-years" placeholder="Ex: 5" min="1" step="1" required>
-                        </div>
 
+        <main>
+            <div class="column-controls">
+                <div class="card">
+                    <h2>Simular Investimento</h2>
+                    <form id="controls-form">
                         <div class="form-group">
-                            <label for="bond-type">Tipo de Título</label>
-                            <select id="bond-type" required>
+                            <label for="principal">Valor do Aporte (R$)</label>
+                            <input id="principal" type="number" placeholder="1000.00" value="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="years">Prazo (anos)</label>
+                            <input id="years" type="number" placeholder="5" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="kind">Tipo de Tesouro</label>
+                            <select id="kind">
                                 <option value="selic">Tesouro Selic</option>
                                 <option value="prefixado">Tesouro Prefixado</option>
                                 <option value="ipca">Tesouro IPCA+</option>
                             </select>
                         </div>
-                        
-                        <button type="submit">Calcular Rendimento</button>
+                        <button type="submit" class="btn-primary">Calcular Rendimento</button>
                     </form>
                 </div>
             </div>
 
             <div class="column-results">
-                <div id="result-container" class="card hidden">
-                    <h2>Resultados</h2>
-                    <div class="result-details">
-                        <div class="result-item"><span>Valor Bruto Final:</span> <span id="result-gross"></span></div>
-                        <hr>
-                        <div class="result-item"><span>(-) Imposto de Renda:</span> <span id="result-ir" class="negative-value"></span></div>
-                        <div class="result-item"><span>(-) Taxa de Custódia (B3):</span> <span id="result-fee" class="negative-value"></span></div>
-                        <hr>
-                        <div class="result-item final-value">
-                            <span>Valor Líquido Final:</span>
-                            <span id="result-net" class="positive-value"></span>
-                        </div>
-                    </div>
+                <div class="card" id="resultado-card" style="display: none;">
+                    <h2>Resultado da Simulação</h2>
                     <div class="chart-container">
-                        <canvas id="result-chart"></canvas>
+                        <canvas id="resultChart"></canvas>
+                    </div>
+                    <div id="resultado-detalhes">
                     </div>
                 </div>
             </div>
         </main>
-        <footer>
-            <p>As simulações são para fins educacionais e não constituem recomendação de investimento.</p>
-        </footer>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="tesourodireto.js"></script>
 </body>
 </html>

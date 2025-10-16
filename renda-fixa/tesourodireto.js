@@ -1,83 +1,136 @@
 
-document.getElementById('investment-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const resultContainer = document.getElementById('result-container');
-    resultContainer.classList.remove('hidden');
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('controls-form');
+            const resultadoCard = document.getElementById('resultado-card');
+            const resultadoDetalhes = document.getElementById('resultado-detalhes');
+            let myChart = null;
 
-    const initialAmount = parseFloat(document.getElementById('initial-amount').value);
-    const years = parseInt(document.getElementById('investment-years').value);
+            const formatCurrency = (value) => {
+                return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            };
 
-    const grossAmount = initialAmount * 1.5; 
-    const ir = (grossAmount - initialAmount) * 0.15;
-    const fee = initialAmount * 0.002 * years;
-    const netAmount = grossAmount - ir - fee;
-    
-    const formatCurrency = (value) => {
-        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    };
-    
-    document.getElementById('result-initial').textContent = formatCurrency(initialAmount);
-    document.getElementById('result-gross').textContent = formatCurrency(grossAmount);
-    document.getElementById('result-gross-profit').textContent = formatCurrency(grossAmount - initialAmount);
-    document.getElementById('result-ir').textContent = `- ${formatCurrency(ir)}`;
-    document.getElementById('result-fee').textContent = `- ${formatCurrency(fee)}`;
-    document.getElementById('result-net').textContent = formatCurrency(netAmount);
+            const createOrUpdateChart = (totalInvested, netInterest) => {
+                const ctx = document.getElementById('resultChart').getContext('2d');
 
-    const ctx = document.getElementById('result-chart').getContext('2d');
-    
-    if (window.myChart instanceof Chart) {
-        window.myChart.destroy();
-    }
+                const chartData = {
+                    labels: ['Total Investido', 'Rendimento Líquido'],
+                    datasets: [{
+                        data: [totalInvested, netInterest],
+                        backgroundColor: [
+                            getComputedStyle(document.documentElement).getPropertyValue('--cor-secundaria'),
+                            getComputedStyle(document.documentElement).getPropertyValue('--cor-sucesso')
+                        ],
+                        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-principal'),
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                };
 
-    const netProfit = netAmount - initialAmount;
-    const taxesAndFees = ir + fee;
-    
-    window.myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Valor Inicial', 'Rendimento Líquido', 'Impostos e Taxas'],
-            datasets: [{
-                label: 'Composição do Valor Final',
-                data: [initialAmount, netProfit, taxesAndFees],
-                backgroundColor: [
-                    '#1F2833',
-                    '#45A29E', 
-                    '#C74242'  
-                ],
-                borderColor: '#0B0C10', 
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: '#C5C6C7',
-                        font: {
-                            size: 14
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.label || '';
-                            if (label) {
-                                label += ': ';
+                if (myChart) {
+                    myChart.data = chartData;
+                    myChart.update();
+                } else {
+                    myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: chartData,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '60%',
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 20,
+                                        font: {
+                                            family: "'Inter', sans-serif",
+                                            size: 14
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.label}: ${formatCurrency(context.parsed)}`;
+                                        }
+                                    }
+                                }
                             }
-                            if (context.parsed !== null) {
-                                label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed);
-                            }
-                            return label;
                         }
-                    }
+                    });
                 }
-            }
-        }
-    });
-});
+            };
 
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const principal = parseFloat(document.getElementById('principal').value);
+                const years = parseFloat(document.getElementById('years').value);
+                const kind = document.getElementById('kind').value;
+
+                if (isNaN(principal) || isNaN(years) || principal <= 0 || years <= 0) {
+                    alert('Por favor, insira valores válidos.');
+                    return;
+                }
+
+                // Definir taxas de exemplo
+                const TAXA_SELIC_ANUAL = 0.1050; // 10.50%
+                const TAXA_PREFIXADA_ANUAL = 0.11; // 11%
+                const TAXA_IPCA_ANUAL = 0.055; // 5.5%
+                const IPCA_ESTIMADO_ANUAL = 0.04; // 4%
+
+                let effectiveRate;
+                switch (kind) {
+                    case 'selic':
+                        effectiveRate = TAXA_SELIC_ANUAL;
+                        break;
+                    case 'prefixado':
+                        effectiveRate = TAXA_PREFIXADA_ANUAL;
+                        break;
+                    case 'ipca':
+                        effectiveRate = (1 + TAXA_IPCA_ANUAL) * (1 + IPCA_ESTIMADO_ANUAL) - 1;
+                        break;
+                }
+
+                const grossValue = principal * Math.pow(1 + effectiveRate, years);
+                const grossInterest = grossValue - principal;
+
+                // Calcular Imposto de Renda
+                const days = years * 365;
+                let irRate;
+                if (days <= 180) irRate = 0.225;
+                else if (days <= 360) irRate = 0.20;
+                else if (days <= 720) irRate = 0.175;
+                else irRate = 0.15;
+
+                const irValue = grossInterest * irRate;
+                const netValue = grossValue - irValue;
+                const netInterest = grossInterest - irValue;
+
+                resultadoCard.style.display = 'block';
+                resultadoDetalhes.innerHTML = `
+                    <div class="resultado-item">
+                        <span>Total Investido:</span>
+                        <strong>${formatCurrency(principal)}</strong>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Juros Brutos:</span>
+                        <strong>${formatCurrency(grossInterest)}</strong>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Alíquota de IR:</span>
+                        <strong>${(irRate * 100).toFixed(1)}%</strong>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Imposto de Renda:</span>
+                        <strong class="ir-value">- ${formatCurrency(irValue)}</strong>
+                    </div>
+                    <div class="resultado-item total">
+                        <span>Valor Líquido Final:</span>
+                        <strong>${formatCurrency(netValue)}</strong>
+                    </div>
+                `;
+                
+                createOrUpdateChart(principal, netInterest);
+            });
+        });

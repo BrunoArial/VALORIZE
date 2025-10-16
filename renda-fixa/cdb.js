@@ -1,140 +1,131 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('cdb-form');
-    const resultadosPlaceholder = document.getElementById('resultados-placeholder');
-    const resultadosConteudo = document.getElementById('resultados-conteudo');
-    const valorBrutoFinalEl = document.getElementById('valor-bruto-final');
-    const impostoRendaEl = document.getElementById('imposto-renda');
-    const valorLiquidoFinalEl = document.getElementById('valor-liquido-final');
-    const totalInvestidoEl = document.getElementById('total-investido');
-    const jurosBrutosEl = document.getElementById('juros-brutos');
-    const aliquotaIrEl = document.getElementById('aliquota-ir');
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('controls-form');
+            const resultadoCard = document.getElementById('resultado-card');
+            const resultadoDetalhes = document.getElementById('resultado-detalhes');
+            let myChart = null;
 
-    let graficoCdb = null;
+            const formatCurrency = (value) => {
+                return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            };
 
-    const formatarMoeda = (valor) => {
-        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    };
+            const createOrUpdateChart = (totalInvested, netInterest) => {
+                const ctx = document.getElementById('resultChart').getContext('2d');
+                const chartData = {
+                    labels: ['Total Investido', 'Rendimento Líquido'],
+                    datasets: [{
+                        data: [totalInvested, netInterest],
+                        backgroundColor: [
+                            getComputedStyle(document.documentElement).getPropertyValue('--cor-secundaria'),
+                            getComputedStyle(document.documentElement).getPropertyValue('--cor-sucesso')
+                        ],
+                        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-principal'),
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                };
 
-    const obterAliquotaIR = (prazoMeses) => {
-        const dias = prazoMeses * 30;
-        if (dias <= 180) return 0.225;
-        if (dias <= 360) return 0.20;
-        if (dias <= 720) return 0.175;
-        return 0.15;
-    };
-
-    const simularInvestimento = (evento) => {
-        evento.preventDefault();
-
-        const valorInicial = parseFloat(document.getElementById('valor-inicial').value) || 0;
-        const aporteMensal = parseFloat(document.getElementById('aporte-mensal').value) || 0;
-        const prazoMeses = parseInt(document.getElementById('prazo-meses').value) || 0;
-        const rentabilidadeCdb = parseFloat(document.getElementById('rentabilidade-cdb').value) || 0;
-        const taxaDi = parseFloat(document.getElementById('taxa-di').value) || 0;
-
-        if (prazoMeses <= 0 || rentabilidadeCdb <= 0 || taxaDi <= 0) {
-            alert("Por favor, preencha o prazo, a rentabilidade e a taxa DI com valores válidos.");
-            return;
-        }
-
-        const taxaDiaria = Math.pow(1 + (taxaDi / 100), 1 / 252) - 1;
-        const taxaEfetivaDiaria = taxaDiaria * (rentabilidadeCdb / 100);
-
-        let valorAcumulado = valorInicial;
-        let totalAportado = valorInicial;
-
-        const dadosGrafico = {
-            labels: [],
-            investido: [],
-            juros: []
-        };
-
-        for (let mes = 1; mes <= prazoMeses; mes++) {
-            if (mes > 1) {
-                valorAcumulado += aporteMensal;
-                totalAportado += aporteMensal;
-            }
-            const diasUteisMes = 21;
-            valorAcumulado *= Math.pow(1 + taxaEfetivaDiaria, diasUteisMes);
-
-            if (mes % 6 === 0 || mes === prazoMeses) {
-                dadosGrafico.labels.push(`${mes}m`);
-                dadosGrafico.investido.push(totalAportado);
-                dadosGrafico.juros.push(valorAcumulado - totalAportado);
-            }
-        }
-
-        const jurosBrutos = valorAcumulado - totalAportado;
-        const aliquotaIr = obterAliquotaIR(prazoMeses);
-        const impostoDevido = jurosBrutos * aliquotaIr;
-        const valorLiquido = valorAcumulado - impostoDevido;
-
-        resultadosPlaceholder.classList.add('hidden');
-        resultadosConteudo.classList.remove('hidden');
-
-        valorBrutoFinalEl.textContent = formatarMoeda(valorAcumulado);
-        impostoRendaEl.textContent = `- ${formatarMoeda(impostoDevido)}`;
-        valorLiquidoFinalEl.textContent = formatarMoeda(valorLiquido);
-        totalInvestidoEl.textContent = formatarMoeda(totalAportado);
-        jurosBrutosEl.textContent = formatarMoeda(jurosBrutos);
-        aliquotaIrEl.textContent = `${(aliquotaIr * 100).toFixed(1)}%`;
-
-        renderizarGrafico(dadosGrafico);
-    };
-
-    const renderizarGrafico = (dados) => {
-        const ctx = document.getElementById('grafico-cdb').getContext('2d');
-        if (graficoCdb) {
-            graficoCdb.destroy();
-        }
-        graficoCdb = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: dados.labels,
-                datasets: [
-                    {
-                        label: 'Total Investido',
-                        data: dados.investido,
-                        backgroundColor: '#1E3A8A',
-                    },
-                    {
-                        label: 'Juros',
-                        data: dados.juros,
-                        backgroundColor: '#16A34A',
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: (context) => `${context.dataset.label}: ${formatarMoeda(context.raw)}`
+                if (myChart) {
+                    myChart.data = chartData;
+                    myChart.update();
+                } else {
+                    myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: chartData,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '60%',
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 20,
+                                        font: { family: "'Inter', sans-serif", size: 14 }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.label}: ${formatCurrency(context.parsed)}`;
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    },
-                    legend: {
-                        labels: {
-                            font: { family: "'Inter', sans-serif" }
-                        }
-                    }
-                },
-                scales: {
-                    x: { 
-                        stacked: true,
-                        ticks: { font: { family: "'Inter', sans-serif" }}
-                    },
-                    y: {
-                        stacked: true,
-                        ticks: {
-                            font: { family: "'Inter', sans-serif" },
-                            callback: (value) => `R$ ${value / 1000}k`
-                        }
-                    }
+                    });
                 }
-            }
-        });
-    };
+            };
 
-    form.addEventListener('submit', simularInvestimento);
-});
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const initialValue = parseFloat(document.getElementById('initial-value').value);
+                const monthlyDeposit = parseFloat(document.getElementById('monthly-deposit').value);
+                const months = parseInt(document.getElementById('months').value);
+                const rate = parseFloat(document.getElementById('rate').value) / 100;
+                const cdi = parseFloat(document.getElementById('cdi').value) / 100;
+
+                if (isNaN(initialValue) || isNaN(monthlyDeposit) || isNaN(months) || isNaN(rate) || isNaN(cdi)) {
+                    alert('Por favor, preencha todos os campos com valores válidos.');
+                    return;
+                }
+
+                const effectiveAnnualRate = cdi * rate;
+                const effectiveMonthlyRate = Math.pow(1 + effectiveAnnualRate, 1 / 12) - 1;
+
+                let grossValue = initialValue;
+                for (let i = 0; i < months; i++) {
+                    grossValue *= (1 + effectiveMonthlyRate);
+                    grossValue += monthlyDeposit; 
+                }
+                // Ajuste para o último aporte não render
+                grossValue -= monthlyDeposit;
+                let totalInvested = initialValue + (monthlyDeposit * months);
+                // Se o aporte for no final do mês, o último não rende, então o valor bruto final não o inclui
+                // mas para o total investido, ele conta. Então, vamos recalcular o valor bruto final corretamente.
+                grossValue = initialValue * Math.pow(1 + effectiveMonthlyRate, months);
+                if (monthlyDeposit > 0) {
+                     grossValue += monthlyDeposit * ((Math.pow(1 + effectiveMonthlyRate, months) - 1) / effectiveMonthlyRate);
+                }
+
+
+                const grossInterest = grossValue - totalInvested;
+
+                const days = months * 30;
+                let irRate;
+                if (days <= 180) irRate = 0.225;
+                else if (days <= 360) irRate = 0.20;
+                else if (days <= 720) irRate = 0.175;
+                else irRate = 0.15;
+
+                const irValue = grossInterest * irRate;
+                const netValue = grossValue - irValue;
+                const netInterest = grossInterest - irValue;
+
+                resultadoCard.style.display = 'block';
+                resultadoDetalhes.innerHTML = `
+                    <div class="resultado-item">
+                        <span>Total Investido (Aportes):</span>
+                        <strong>${formatCurrency(totalInvested)}</strong>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Juros Brutos Acumulados:</span>
+                        <strong>${formatCurrency(grossInterest)}</strong>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Alíquota de IR:</span>
+                        <strong>${(irRate * 100).toFixed(1)}%</strong>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Imposto de Renda:</span>
+                        <strong class="ir-value">- ${formatCurrency(irValue)}</strong>
+                    </div>
+                    <div class="resultado-item total">
+                        <span>Valor Líquido de Resgate:</span>
+                        <strong>${formatCurrency(netValue)}</strong>
+                    </div>
+                `;
+                
+                createOrUpdateChart(totalInvested, netInterest);
+            });
+        });

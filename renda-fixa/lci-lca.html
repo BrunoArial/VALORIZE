@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LCI & LCA - Comparador</title>
+    <title>LCI & LCA - Comparador de Ofertas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -16,9 +16,9 @@
                 <a href="../index.html">Início</a>
             </div>
             <h1>Comparador de Renda Fixa</h1>
-            <p>Compare as melhores ofertas de LCI e LCA do mercado.</p>
+            <p>Adicione e compare as melhores ofertas de LCI e LCA do mercado.</p>
             <nav class="sub-nav">
-                <a href="tesourodireto.html">Tesouro Direto</a>
+                <a href="tesouro.html">Tesouro Direto</a>
                 <a href="lci-lca.html" class="active">LCI & LCA</a>
                 <a href="cdb.html">CDB</a>
             </nav>
@@ -31,7 +31,7 @@
                     <form id="controls-form">
                         <div class="form-group">
                             <label for="bank">Banco / Emissor</label>
-                            <input id="bank" placeholder="Ex: Banco X">
+                            <input id="bank" type="text" placeholder="Ex: Banco Sofisa" required>
                         </div>
                         <div class="form-group">
                             <label for="kind">Tipo</label>
@@ -41,32 +41,23 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="rate">Taxa / % do CDI</label>
-                            <input id="rate" placeholder="Ex: 8.5 ou 95">
-                        </div>
-                        <div class="form-group">
-                            <label for="rate-type">Formato da taxa</label>
-                            <select id="rate-type">
-                                <option value="fixed">Taxa anual fixa (%)</option>
-                                <option value="of-cdi">% do CDI</option>
-                            </select>
+                            <label for="rate">Rentabilidade (% do CDI)</label>
+                            <input id="rate" type="number" placeholder="98" required>
                         </div>
                         <div class="form-group">
                             <label for="months">Prazo (meses)</label>
-                            <input id="months" type="number" value="12">
+                            <input id="months" type="number" value="12" required>
                         </div>
                         <div class="form-group">
                             <label for="principal">Valor investido (R$)</label>
-                            <input id="principal" type="number" value="10000">
+                            <input id="principal" type="number" value="10000" required>
                         </div>
                         <div class="form-group">
                             <label for="cdi">CDI anual (%)</label>
-                            <input id="cdi" type="number" value="13.15">
+                            <input id="cdi" type="number" value="10.50" step="0.01" required>
                         </div>
-                        <button type="button" id="add-btn" class="btn-primary">Adicionar</button>
+                        <button type="submit" id="add-btn" class="btn-primary">Adicionar à Tabela</button>
                         <div class="button-group">
-                            <button type="button" id="sort-value" class="btn-secondary">Ordenar</button>
-                            <button type="button" id="export-csv" class="btn-secondary">Exportar</button>
                             <button type="button" id="clear-btn" class="btn-danger">Limpar Tudo</button>
                         </div>
                     </form>
@@ -75,7 +66,7 @@
 
             <div class="column-results">
                 <div class="card">
-                    <h2>Comparativo</h2>
+                    <h2>Comparativo de Ofertas</h2>
                     <div class="table-container">
                         <table id="offers-table">
                             <thead>
@@ -87,17 +78,13 @@
                                     <th>Ações</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                            </tbody>
                         </table>
                     </div>
-                    <p id="summary"></p>
                 </div>
             </div>
         </main>
-        
-        <footer>
-            <p>LCI e LCA são investimentos isentos de Imposto de Renda para pessoa física.</p>
-        </footer>
     </div>
     <script src="lci-lca.js"></script>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de CDB - Calcule seu Investimento</title>
+    <title>CDB - Simulador de Investimentos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -16,84 +16,62 @@
                 <a href="../index.html">Início</a>
             </div>
             <h1>Simulador de Renda Fixa</h1>
-            <p>Calcule a rentabilidade dos seus investimentos em CDB.</p>
+            <p>Simule seu investimento em um CDB pós-fixado atrelado ao CDI.</p>
             <nav class="sub-nav">
-                <a href="tesourodireto.html">Tesouro Direto</a>
+                <a href="tesouro.html">Tesouro Direto</a>
                 <a href="lci-lca.html">LCI & LCA</a>
                 <a href="cdb.html" class="active">CDB</a>
             </nav>
         </header>
 
         <main>
-            <div class="column-simulator">
+            <div class="column-controls">
                 <div class="card">
-                    <h2>Parâmetros do CDB</h2>
-                    <form id="cdb-form">
+                    <h2>Parâmetros da Simulação</h2>
+                    <form id="controls-form">
                         <div class="form-group">
-                            <label for="valor-inicial">Valor Inicial (R$)</label>
-                            <input type="number" id="valor-inicial" value="5000" placeholder="Ex: 5000">
-                        </div>
-                        <div class="form-group">
-                            <label for="aporte-mensal">Aporte Mensal (R$)</label>
-                            <input type="number" id="aporte-mensal" value="300" placeholder="Ex: 300">
+                            <label for="initial-value">Valor Inicial (R$)</label>
+                            <input id="initial-value" type="number" placeholder="5000.00" value="5000">
                         </div>
                         <div class="form-group">
-                            <label for="prazo-meses">Prazo (meses)</label>
-                            <input type="number" id="prazo-meses" value="36" placeholder="Ex: 24">
+                            <label for="monthly-deposit">Aporte Mensal (R$)</label>
+                            <input id="monthly-deposit" type="number" placeholder="200.00" value="200">
                         </div>
-                        <hr>
                         <div class="form-group">
-                            <label for="rentabilidade-cdb">Rentabilidade (% do CDI)</label>
-                            <input type="number" id="rentabilidade-cdb" value="110" placeholder="Ex: 110">
+                            <label for="months">Prazo (meses)</label>
+                            <input id="months" type="number" placeholder="36" value="36">
                         </div>
-                         <div class="form-group">
-                            <label for="taxa-di">Taxa DI (CDI) Anual (%)</label>
-                            <input type="number" id="taxa-di" value="10.50" step="0.01" placeholder="Ex: 10.50">
+                        <div class="form-group">
+                            <label for="rate">Rentabilidade (% do CDI)</label>
+                            <input id="rate" type="number" placeholder="110" value="110">
                         </div>
-                        <button type="submit">Simular Investimento</button>
+                        <div class="form-group">
+                            <label for="cdi">CDI Anual (%)</label>
+                            <input id="cdi" type="number" value="10.50" step="0.01">
+                        </div>
+                        <button type="submit" class="btn-primary">Simular Investimento</button>
                     </form>
                 </div>
             </div>
 
             <div class="column-results">
-                <div id="resultados-placeholder" class="card">
-                     <h2>Preencha os dados ao lado para ver a sua simulação.</h2>
-                     <p>Descubra o potencial do seu dinheiro investido em um CDB.</p>
-                </div>
-
-                <div id="resultados-conteudo" class="card hidden">
+                <div class="card" id="resultado-card" style="display: none;">
                     <h2>Resultado da Simulação</h2>
-                    <div class="cards-resumo">
-                        <div class="summary-card">
-                            <h4>Valor Bruto</h4>
-                            <p id="valor-bruto-final">R$ 0,00</p>
-                        </div>
-                        <div class="summary-card">
-                            <h4>Imposto de Renda</h4>
-                            <p id="imposto-renda" class="negative-value">- R$ 0,00</p>
-                        </div>
-                        <div class="summary-card highlight">
-                            <h4>Valor Líquido</h4>
-                            <p id="valor-liquido-final">R$ 0,00</p>
-                        </div>
+                    <div class="chart-container">
+                        <canvas id="resultChart"></canvas>
                     </div>
-                    <div class="grafico-container">
-                        <canvas id="grafico-cdb"></canvas>
-                    </div>
-                    <div class="detalhes-financeiros">
-                        <ul>
-                            <li><span>Total Investido (Aportes):</span> <strong id="total-investido">R$ 0,00</strong></li>
-                            <li><span>Juros Brutos Acumulados:</span> <strong id="juros-brutos">R$ 0,00</strong></li>
-                            <li><span>Alíquota de IR:</span> <strong id="aliquota-ir">0%</strong></li>
-                        </ul>
+                    <div id="resultado-detalhes">
+                        <!-- Conteúdo gerado pelo JS -->
                     </div>
                 </div>
             </div>
         </main>
+        
         <footer>
-            <p>A rentabilidade do CDB é tributada conforme a tabela regressiva do Imposto de Renda.</p>
+            <p>O rendimento do CDB, assim como o Tesouro Direto, possui tributação de Imposto de Renda.</p>
         </footer>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="cdb.js"></script>
 </body>
