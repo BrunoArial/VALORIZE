@@ -1,4 +1,3 @@
-/* Definição da sua paleta de cores e fontes */
 :root {
     --fonte-titulos: 'Poppins', sans-serif;
     --texto: 'Inter', sans-serif;
@@ -9,7 +8,6 @@
     --cor-texto: #111827;
 }
 
-/* Estilos Gerais */
 body {
     margin: 0;
     padding: 0;
@@ -20,12 +18,11 @@ body {
 }
 
 .container {
-    max-width: 960px; 
+    max-width: 960px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 2rem 1.5rem;
 }
 
-/* Menu de Navegação Fixo */
 .menu a {
     position: fixed;
     top: 10px;
@@ -41,7 +38,7 @@ body {
     box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
     z-index: 999;
     transition: all 0.3s ease;
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .menu a:hover {
@@ -50,44 +47,44 @@ body {
     box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
-/* Cabeçalho da Página */
+
 header {
     text-align: center;
-    margin-bottom: 3.5rem; /* Aumentei a margem para dar mais espaço */
-    margin-top: 4rem;
+    margin-bottom: clamp(2.5rem, 8vw, 3.5rem); 
+    margin-top: clamp(3rem, 10vw, 5rem);      
 }
 
 header h1 {
     font-family: var(--fonte-titulos);
     color: var(--cor-primaria);
-    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem); 
     margin-bottom: 0.5rem;
 }
 
 header p {
     color: #374151;
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem); 
     max-width: 600px;
     margin: 0 auto;
 }
 
-/* NOVO: Menu de Opções de Renda Fixa */
 .options-menu {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    flex-wrap: wrap; /* Permite que os cards quebrem a linha em telas menores */
+    flex-wrap: wrap;
 }
 
 .option-card {
     background-color: #fff;
-    text-decoration: none; 
+    text-decoration: none;
     color: var(--cor-texto);
     padding: 2rem;
     border-radius: 12px;
     border: 1px solid #E5E7EB;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    width: 250px;
+    flex: 1 1 250px;      
+    max-width: 350px;    
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
@@ -103,6 +100,7 @@ header p {
     color: var(--cor-primaria);
     margin-top: 0;
     margin-bottom: 0.75rem;
+    font-size: 1.25rem;
 }
 
 .option-card p {
@@ -111,7 +109,6 @@ header p {
     margin: 0;
 }
 
-/* Rodapé */
 footer {
     text-align: center;
     margin-top: 4rem;

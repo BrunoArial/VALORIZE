@@ -23,7 +23,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 1.5rem; 
 }
 
 .menu a {
@@ -40,14 +40,18 @@ body {
 }
 
 header {
-    text-align: center; margin-bottom: 2.5rem; margin-top: 4rem;
+    text-align: center;
+    margin-bottom: clamp(2.5rem, 8vw, 3.5rem); 
+    margin-top: clamp(4rem, 15vw, 5.5rem); 
 }
 header h1 {
     font-family: var(--fonte-titulos); color: var(--cor-primaria);
-    font-size: 2.2rem; margin-bottom: 0.5rem;
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+    margin-bottom: 0.5rem;
 }
 header p {
-    color: var(--cor-texto-secundario); font-size: 1.1rem;
+    color: var(--cor-texto-secundario);
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
     max-width: 600px; margin: 0 auto;
 }
 
@@ -57,7 +61,7 @@ header p {
 .index-section h2 {
     font-family: var(--fonte-titulos);
     color: var(--cor-primaria);
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -71,7 +75,7 @@ header p {
 .quote-card {
     background-color: #fff;
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: clamp(1rem, 4vw, 1.5rem);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--cor-borda);
 }
@@ -85,7 +89,7 @@ header p {
 
 .index-name {
     font-family: var(--fonte-titulos);
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 3vw, 1.1rem);
     font-weight: 600;
     color: var(--cor-primaria);
 }
@@ -95,7 +99,7 @@ header p {
 }
 
 .index-value {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 7vw, 2rem);
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--cor-texto);

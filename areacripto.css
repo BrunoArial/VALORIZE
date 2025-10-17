@@ -1,4 +1,3 @@
-/* Definição da sua paleta de cores e fontes */
 :root {
     --fonte-titulos: 'Poppins', sans-serif;
     --texto: 'Inter', sans-serif;
@@ -9,7 +8,6 @@
     --cor-texto: #111827;
 }
 
-/* Estilos Gerais */
 body {
     margin: 0;
     padding: 0;
@@ -20,12 +18,11 @@ body {
 }
 
 .container {
-    max-width: 1200px; /* Aumentado para acomodar mais cards */
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 1.5rem;
 }
 
-/* Menu de Navegação */
 .menu a {
     position: fixed;
     top: 10px;
@@ -41,10 +38,10 @@ body {
     box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
     z-index: 999;
     transition: all 0.3s ease;
-    text-decoration: none; 
-    outline: none;           
-    border: none;          
-    cursor: pointer;   
+    text-decoration: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 
 .menu a:hover {
@@ -53,46 +50,45 @@ body {
     box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
 }
 
-/* Cabeçalho da Página */
 header {
     text-align: center;
-    margin-bottom: 2.5rem;
-    margin-top: 4rem;
+    margin-bottom: clamp(2.5rem, 8vw, 3.5rem); 
+    margin-top: clamp(4rem, 15vw, 5.5rem); 
 }
 
 header h1 {
     font-family: var(--fonte-titulos);
     color: var(--cor-primaria);
-    font-size: 2rem;
+
+    font-size: clamp(1.75rem, 6vw, 2.2rem);
     margin-bottom: 0.5rem;
 }
 
 header p {
     color: #374151;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
 .widget-container {
-    height: 400px; /* Você pode ajustar a altura aqui */
-    width: 95%; /* Define a largura para não ocupar a tela toda */
-    max-width: 1100px; /* Largura máxima em telas grandes */
-    margin: 0 auto 2.5rem auto; /* Centraliza horizontalmente e mantém a margem inferior */
+    height: clamp(350px, 60vh, 450px); 
+    width: 95%; 
+    max-width: 1100px; 
+    margin: 0 auto 2.5rem auto;
     padding: 1rem;
     border-radius: 12px;
-    border: 1px solid #E5E7EB; /* Borda sutil para definir melhor os limites */
+    border: 1px solid #E5E7EB;
 }
 
-/* Grade de Moedas */
 #coins {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem; /* Espaçamento entre os cards */
+  gap: 1.5rem;
 }
 
-/* Estilo do Card Individual da Moeda */
 .coin {
-  width: 250px;
+  flex: 1 1 250px; 
+  max-width: 300px; 
   background-color: white;
   border-radius: 12px;
   padding: 1.5rem;
@@ -130,7 +126,6 @@ header p {
   color: var(--cor-texto);
 }
 
-/* Cores para Variação de Preço */
 .positive {
   color: #16A34A;
   font-weight: 600 !important;
@@ -141,7 +136,6 @@ header p {
   font-weight: 600 !important;
 }
 
-/* Rodapé */
 footer {
     text-align: center;
     margin-top: 2.5rem;

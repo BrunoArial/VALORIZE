@@ -1,11 +1,11 @@
 :root {
     --fonte-titulos: 'Poppins', sans-serif;
     --texto: 'Inter', sans-serif;
-    --cor-primaria: #1E3A8A;       
-    --cor-secundaria: #2563EB;   
-    --cor-destaque: #FBBF24;     
-    --bg-principal: #F9FAFB;      
-    --cor-texto: #111827;       
+    --cor-primaria: #1E3A8A;
+    --cor-secundaria: #2563EB;
+    --cor-destaque: #FBBF24;
+    --bg-principal: #F9FAFB;
+    --cor-texto: #111827;
 }
 
 body {
@@ -40,14 +40,15 @@ body {
 
 .menu-content {
     text-align: center;
+    padding: 0 20px;
 }
 
 .welcome-title {
     font-family: var(--fonte-titulos);
-    font-size: 56px; 
+    font-size: clamp(2.25rem, 8vw, 3.5rem);
     font-weight: 700;
     color: #FFFFFF;
-    margin-bottom: 50px;
+    margin-bottom: clamp(30px, 8vh, 50px);
     letter-spacing: 1px;
     animation: fadeInDown 0.8s ease-out forwards;
     text-shadow: 0px 3px 6px rgba(0,0,0,0.4);
@@ -59,7 +60,7 @@ body {
     position: absolute;
     left: 50%;
     bottom: -8px;
-    width: 60px;
+    width: clamp(50px, 15vw, 70px);
     height: 4px;
     background-color: var(--cor-destaque);
     transform: translateX(-50%);
@@ -87,7 +88,7 @@ body {
     display: inline-block;
     color: #E0E7FF;
     text-decoration: none;
-    font-size: 24px;
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
     padding: 12px 0;
     position: relative;
     transition: color 0.3s ease, transform 0.3s ease;

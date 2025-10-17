@@ -20,7 +20,7 @@ body {
 .container {
     max-width: 960px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 1.5rem; 
 }
 
 .menu a {
@@ -38,10 +38,10 @@ body {
     box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
     z-index: 999;
     transition: all 0.3s ease;
-    text-decoration: none; 
-    outline: none;          
-    border: none;           
-    cursor: pointer;    
+    text-decoration: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 
 .menu a:hover {
@@ -53,26 +53,25 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 2.5rem;
-    margin-top: 4rem;
+    margin-bottom: clamp(2rem, 6vw, 3rem);     
+    margin-top: clamp(4rem, 15vw, 5.5rem); 
 }
 
 header h1 {
     font-family: var(--fonte-titulos);
     color: var(--cor-primaria);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
 }
 
 header p {
     color: #374151;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
 .card {
     background-color: white;
     border-radius: 12px;
-    padding: 2rem;
+    padding: clamp(1.5rem, 5vw, 2rem);
     margin-bottom: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     border-left: 4px solid var(--cor-secundaria);
@@ -119,7 +118,7 @@ input:focus, select:focus {
 }
 
 button {
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
     padding: 14px;
     background-color: var(--cor-secundaria);
     color: white;
@@ -191,7 +190,7 @@ button:active {
 
 #chart-container {
     position: relative;
-    height: 450px;
+    height: clamp(300px, 60vh, 450px);
 }
 
 .hidden {
@@ -203,4 +202,55 @@ footer {
     margin-top: 2rem;
     font-size: 0.9rem;
     color: #6B7280;
+}
+@media (max-width: 768px) {
+
+    #summary-table-container table,
+    #summary-table-container thead,
+    #summary-table-container tbody,
+    #summary-table-container th,
+    #summary-table-container td,
+    #summary-table-container tr {
+        display: block;
+    }
+
+    #summary-table-container thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    #summary-table-container tr {
+        border: 1px solid #ccc;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+    }
+
+    #summary-table-container td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%; 
+        text-align: right; 
+    }
+    #summary-table-container td:before {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: var(--cor-primaria);
+    }
+    #summary-table-container tbody tr:nth-of-type(1) td:nth-of-type(1):before { content: "Mês"; }
+    #summary-table-container tbody tr:nth-of-type(1) td:nth-of-type(2):before { content: "Valor Investido"; }
+    #summary-table-container tbody tr:nth-of-type(1) td:nth-of-type(3):before { content: "Juros"; }
+    #summary-table-container tbody tr:nth-of-type(1) td:nth-of-type(4):before { content: "Total"; }
+    #summary-table-container td:nth-child(1)::before { content: "Mês"; }
+    #summary-table-container td:nth-child(2)::before { content: "Valor Investido"; }
+    #summary-table-container td:nth-child(3)::before { content: "Juros"; }
+    #summary-table-container td:nth-child(4)::before { content: "Total"; }
 }
