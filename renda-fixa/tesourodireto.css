@@ -174,3 +174,15 @@ button:active { transform: scale(0.98); }
     font-size: clamp(1.15rem, 4vw, 1.3rem); 
     font-weight: 700;
 }
+
+#dynamic-rate-fields {
+    border-top: 2px solid var(--cor-borda);
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+}
+
+.rate-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}

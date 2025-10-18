@@ -30,12 +30,18 @@
                     <h2>Simular Investimento</h2>
                     <form id="controls-form">
                         <div class="form-group">
-                            <label for="principal">Valor do Aporte (R$)</label>
-                            <input id="principal" type="number" placeholder="1000.00" value="1000">
+                            <label for="principal">Valor Inicial (R$)</label>
+                            <input id="principal" type="number" placeholder="1000.00" value="1000" step="100">
                         </div>
+                        
+                        <div class="form-group" id="monthly-contribution-group">
+                            <label for="monthly-contribution">Aporte Mensal (R$)</label>
+                            <input id="monthly-contribution" type="number" placeholder="100.00" value="0" step="50">
+                        </div>
+
                         <div class="form-group">
                             <label for="years">Prazo (anos)</label>
-                            <input id="years" type="number" placeholder="5" value="5">
+                            <input id="years" type="number" placeholder="5" value="5" step="0.5">
                         </div>
                         <div class="form-group">
                             <label for="kind">Tipo de Tesouro</label>
@@ -44,6 +50,35 @@
                                 <option value="prefixado">Tesouro Prefixado</option>
                                 <option value="ipca">Tesouro IPCA+</option>
                             </select>
+                        </div>
+
+                        <div id="dynamic-rate-fields">
+                            
+                            <div id="fields-selic" class="rate-fields">
+                                <div class="form-group">
+                                    <label for="rate-selic">Taxa Selic (% a.a.)</label>
+                                    <input id="rate-selic" type="number" placeholder="10.50" value="10.5" step="0.01">
+                                </div>
+                            </div>
+
+                            <div id="fields-prefixado" class="rate-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="rate-prefixado">Taxa Prefixada (% a.a.)</label>
+                                    <input id="rate-prefixado" type="number" placeholder="11.00" value="11.0" step="0.01">
+                                </div>
+                            </div>
+
+                            <div id="fields-ipca" class="rate-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="rate-ipca-real">Taxa Real - Prêmio IPCA (% a.a.)</label>
+                                    <input id="rate-ipca-real" type="number" placeholder="5.50" value="5.5" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rate-ipca-estimado">Estimativa IPCA (% a.a.)</label>
+                                    <input id="rate-ipca-estimado" type="number" placeholder="4.00" value="4.0" step="0.01">
+                                </div>
+                            </div>
+
                         </div>
                         <button type="submit" class="btn-primary">Calcular Rendimento</button>
                     </form>
