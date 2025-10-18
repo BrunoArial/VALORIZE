@@ -142,17 +142,12 @@ footer {
     margin: 0 0 1.5rem 0;
 }
 
-/* --- Estilos para o Card de Informações (Estilo Borda Esquerda) --- */
 #info-card {
-    /* Define a borda esquerda com a cor do tema */
-    border-left: 4px solid var(--cor-secundaria);
-    
-    /* Espaçamento antes da primeira grade de índices */
-    margin-bottom: 2.5rem; 
+    border-left: none;
+    margin-bottom: 2rem; 
 }
 
 #info-card h2 {
-    /* Define a cor do título e da borda inferior */
     color: var(--cor-secundaria);
     border-bottom-color: var(--cor-secundaria);
 }

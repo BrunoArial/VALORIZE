@@ -43,6 +43,19 @@ body {
     padding: 0 20px;
 }
 
+.menu-logo {
+    width: clamp(80px, 20vw, 120px); 
+    height: auto;
+    margin-bottom: 20px;
+    animation: fadeInDown 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.menu-content {
+    text-align: center;
+    padding: 0 20px;
+}
+
 .welcome-title {
     font-family: var(--fonte-titulos);
     font-size: clamp(2.25rem, 8vw, 3.5rem);
@@ -123,3 +136,4 @@ body {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
+

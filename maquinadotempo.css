@@ -258,7 +258,8 @@ footer {
 }
 
 #info-card {
-    border-left-color: var(--cor-secundaria);
+    margin-bottom: 2rem;
+    border-left: none;
 }
 
 #info-card h2 {
