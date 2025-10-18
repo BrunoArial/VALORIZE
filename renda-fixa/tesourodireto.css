@@ -186,3 +186,44 @@ button:active { transform: scale(0.98); }
     flex-direction: column;
     gap: 1.25rem;
 }
+
+#info-card {
+    border-left-color: var(--cor-secundaria);
+    margin-bottom: 2rem;
+}
+
+#info-card h2 {
+    color: var(--cor-secundaria);
+    border-bottom-color: var(--cor-secundaria);
+}
+
+#info-card h3 {
+    font-family: var(--fonte-titulos);
+    color: var(--cor-primaria);
+    font-size: 1.2rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+#info-card p {
+    color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.info-list {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.info-list li {
+    font-size: 0.95rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0.75rem;
+}
+
+.info-list li strong {
+    color: var(--cor-texto);
+    display: block;
+    font-weight: 600;
+}
