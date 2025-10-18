@@ -253,4 +253,7 @@ footer {
     #summary-table-container td:nth-child(2)::before { content: "Valor Investido"; }
     #summary-table-container td:nth-child(3)::before { content: "Juros"; }
     #summary-table-container td:nth-child(4)::before { content: "Total"; }
+
+    
 }
+
