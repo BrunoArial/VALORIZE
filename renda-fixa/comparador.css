@@ -40,6 +40,47 @@ body {
     transform: translateX(-50%) scale(1.05);
 }
 
+#info-card {
+    margin-bottom: 2rem;
+    border-left: none;
+}
+
+#info-card h2 {
+    border-bottom-color: var(--cor-secundaria);
+}
+
+#info-card h3 {
+    font-family: var(--fonte-titulos);
+    color: var(--cor-primaria);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#info-card ul {
+    list-style-position: inside;
+    padding-left: 10px;
+    margin-top: 1rem;
+}
+
+#info-card li {
+    margin-bottom: 0.5rem;
+}
+
+#info-card code {
+    background-color: #f3f4f6;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+    color: var(--cor-primaria);
+    font-weight: 600;
+}
+
+#info-card p {
+    margin-bottom: 0.75rem;
+}
+
 header {
     text-align: center;
     margin-bottom: clamp(2.5rem, 8vw, 3.5rem);
@@ -57,21 +98,31 @@ header p {
 }
 
 .sub-nav {
-    display: flex; justify-content: center; gap: 0.5rem;
+    display: flex; 
+    justify-content: center; 
+    gap: 0.5rem;
     flex-wrap: wrap;
-    background-color: #E5E7EB; border-radius: 8px; padding: 5px;
-    max-width: fit-content; margin: 1.5rem auto 0 auto;
+    background-color: #E5E7EB; 
+    border-radius: 8px; 
+    padding: 5px;
+    max-width: fit-content; 
+    margin: 1.5rem auto 0 auto;
 }
 .sub-nav a {
-    text-decoration: none; color: var(--cor-texto-secundario);
-    padding: 8px 16px; border-radius: 6px; font-weight: 600;
+    text-decoration: none; 
+    color: var(--cor-texto-secundario);
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    font-weight: 600;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 .sub-nav a:hover {
-    background-color: #fff; color: var(--cor-texto);
+    background-color: #fff; 
+    color: var(--cor-texto);
 }
 .sub-nav a.active {
-    background-color: var(--cor-secundaria); color: #fff;
+    background-color: var(--cor-secundaria); 
+    color: #fff;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
@@ -117,6 +168,18 @@ input:focus, select:focus {
     outline: none; border-color: var(--cor-secundaria);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
+
+#dynamic-fields {
+    border-top: 2px solid var(--cor-borda);
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+}
+.dynamic-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
 
 button {
     padding: 12px; border-radius: 6px; font-size: 1rem;
@@ -190,10 +253,6 @@ td .del-btn:hover {
     text-decoration: underline;
 }
 
-footer {
-    text-align: center; margin-top: 2rem; font-size: 0.9rem;
-    color: #6B7280;
-}
 @media (max-width: 768px) {
     thead {
         display: none;
@@ -232,137 +291,10 @@ footer {
     tr.best td:first-child::before {
         content: '⭐ ' attr(data-label);
     }
-}
 
-#info-card {
-    margin-bottom: 2rem;
-    border-left: none;
-}
-
-#info-card h2 {
-    border-bottom-color: var(--cor-secundaria);
-}
-
-#info-card h3 {
-    font-family: var(--fonte-titulos);
-    color: var(--cor-primaria);
-    font-size: 1.2rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-#info-card ul {
-    list-style-position: inside;
-    padding-left: 10px;
-    margin-top: 1rem;
-}
-
-#info-card li {
-    margin-bottom: 0.5rem;
-}
-
-#info-card code {
-    background-color: #f3f4f6;
-    padding: 3px 6px;
-    border-radius: 4px;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 0.9rem;
-    color: var(--cor-primaria);
-    font-weight: 600;
-}
-
-#info-card p {
-    margin-bottom: 0.75rem;
-}
-
-#info-card code {
-    background-color: #f3f4f6;
-    padding: 3px 6px;
-    border-radius: 4px;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 0.9rem;
-    color: var(--cor-primaria);
-    font-weight: 600;
-}
-.result-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    border-top: 2px solid var(--cor-borda);
-    padding-top: 1.5rem;
-}
-
-.equivalent-box {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid var(--cor-borda);
-    border-radius: 8px;
-    background-color: var(--bg-principal);
-}
-
-.equivalent-box label {
-    font-size: 1.1rem;
-    color: var(--cor-primaria);
-}
-
-.equivalent-box input {
-    font-size: 1.5rem;
-    font-weight: 700;
-    padding: 12px;
-}
-
-.equivalent-box span {
-    font-size: 0.85rem;
-    color: var(--cor-texto-secundario);
-    text-align: right;
-    margin-top: 0.5rem;
-}
-
-.equals-sign {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--cor-primaria);
-    transform: rotate(90deg);
-}
-
-.result-text-main {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    color: var(--cor-texto);
-    font-weight: 600;
-    text-align: center;
-    padding: 1rem;
-    background-color: #EFF6FF;
-    border-radius: 8px;
-}
-
-.info-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-top: 1.5rem;
-    color: var(--cor-texto-secundario);
-}
-.info-text strong {
-    color: var(--cor-primaria);
-    font-weight: 700;
-}
-
-
-@media (min-width: 768px) {
-    .result-group {
-        flex-direction: row;
-        align-items: center;
-    }
-    
-    .equals-sign {
-        transform: rotate(0deg);
-        flex-basis: 50px;
-        text-align: center;
-    }
-
-    .equivalent-box {
-        flex: 1;
-    }
+    td[data-label="Investimento"]::before { content: "Investimento"; }
+    td[data-label="Tipo"]::before { content: "Tipo"; }
+    td[data-label="Prazo"]::before { content: "Prazo"; }
+    td[data-label="Valor Líquido Final"]::before { content: "Valor Líquido Final"; }
+    td[data-label="Ações"]::before { content: "Ações"; }
 }

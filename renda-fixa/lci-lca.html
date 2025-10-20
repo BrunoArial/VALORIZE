@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LCI & LCA - Comparador de Ofertas</title>
+    <title>Equivalência LCI/LCA vs CDB</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="lci-lca.css">
+    <link rel="stylesheet" href="lci-lca.css"> 
 </head>
 <body>
     <div class="container">
@@ -15,65 +15,47 @@
             <div class="menu">
                 <a href="../index.html">Início</a>
             </div>
-            <h1>Comparador de Renda Fixa</h1>
-            <p>Adicione e compare as melhores ofertas de LCI e LCA do mercado.</p>
+            <h1>Simulador de Renda Fixa</h1>
+            <p>Descubra qual investimento é mais rentável</p>
             <nav class="sub-nav">
                 <a href="tesourodireto.html">Tesouro Direto</a>
-                <a href="lci-lca.html" class="active">LCI & LCA</a>
+                <a href="lci-lca.html" class="active">LCI vs CDB</a>
                 <a href="cdb.html">CDB</a>
+                <a href="comparador.html">Comparador</a>
             </nav>
         </header>
-        <div class="card" id="info-card">
-    <h2>O que é este Comparador?</h2>
-    <p>Esta ferramenta é um <strong>comparador de ofertas de LCI e LCA</strong>. Você insere os dados da oferta (rentabilidade %CDI, prazo) e o valor que quer investir.</p>
-    <p>Ela calcula o <strong>valor final líquido</strong> que você resgataria ao final do prazo, permitindo que você adicione várias ofertas na tabela para ver qual é a mais vantajosa. A melhor oferta é destacada com um ⭐.</p>
-    
-    <h3>O que são LCI e LCA? </h3>
-    <p>São títulos de renda fixa emitidos por bancos para financiar dois setores específicos da economia. A principal vantagem é a isenção de impostos.</p>
-    
-    <ul>
-        <li><strong>LCI (Letra de Crédito Imobiliário):</strong> O dinheiro é usado para financiar o setor imobiliário.</li>
-        <li><strong>LCA (Letra de Crédito do Agronegócio):</strong> O dinheiro é usado para financiar o agronegócio.</li>
-    </ul>
 
-    <p><strong>Isenção de Imposto de Renda:</strong> Diferente do Tesouro Direto ou CDBs, o rendimento total de LCIs e LCAs é seu, <strong>sem desconto de IR</strong> (para pessoa física). O valor final na tabela já é líquido.</p>
-    <p><strong>Garantia do FGC:</strong> Assim como a poupança, elas são protegidas pelo Fundo Garantidor de Créditos (FGC), o que as torna um dos investimentos mais seguros do mercado.</p>
-</div>
+        <div class="card" id="info-card">
+            <h2>O que é esta ferramenta?</h2>
+            <p>Esta é uma <strong>calculadora de equivalência</strong>. A principal diferença entre um CDB e uma LCI/LCA é que a LCI/LCA é <strong>isenta de Imposto de Renda</strong>, enquanto o CDB não é.</p>
+            <p>Esta ferramenta calcula qual a rentabilidade que um CDB precisaria ter para ser igual a uma LCI (e vice-versa), com base no prazo do investimento (que define a alíquota do imposto).</p>
+            <p><strong>Como usar:</strong> Insira o prazo e depois preencha UMA das taxas. A outra será calculada automaticamente.</p>
+        </div>
+
         <main>
             <div class="column-controls">
                 <div class="card">
-                    <h2>Adicionar Oferta</h2>
-                    <form id="controls-form">
+                    <h2>Calculadora de Equivalência</h2>
+                    <form id="equivalence-form">
                         <div class="form-group">
-                            <label for="bank">Investimento</label>
-                            <input id="bank" type="text" placeholder="Ex: Investimento 1" required>
+                            <label for="prazo-meses">Prazo do Investimento (meses)</label>
+                            <input id="prazo-meses" type="number" value="12" required>
                         </div>
-                        <div class="form-group">
-                            <label for="kind">Tipo</label>
-                            <select id="kind">
-                                <option value="LCI">LCI</option>
-                                <option value="LCA">LCA</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="rate">Rentabilidade (% do CDI)</label>
-                            <input id="rate" type="number" placeholder="98" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="months">Prazo (meses)</label>
-                            <input id="months" type="number" value="12" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="principal">Valor investido (R$)</label>
-                            <input id="principal" type="number" value="10000" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="cdi">CDI anual (%)</label>
-                            <input id="cdi" type="number" value="10.50" step="0.01" required>
-                        </div>
-                        <button type="submit" id="add-btn" class="btn-primary">Adicionar à Tabela</button>
-                        <div class="button-group">
-                            <button type="button" id="clear-btn" class="btn-danger">Limpar Tudo</button>
+                        
+                        <div class="result-group">
+                            <div class="form-group equivalent-box">
+                                <label for="taxa-lci">Taxa LCI / LCA (% do CDI)</label>
+                                <input id="taxa-lci" type="number" step="0.1" placeholder="95">
+                                <span>Isento de IR</span>
+                            </div>
+                            
+                            <div class="equals-sign">=</div>
+
+                            <div class="form-group equivalent-box">
+                                <label for="taxa-cdb">Taxa CDB (% do CDI)</label>
+                                <input id="taxa-cdb" type="number" step="0.1" placeholder="115">
+                                <span id="ir-rate-display">Sofre IR de 17.5%</span>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -81,22 +63,13 @@
 
             <div class="column-results">
                 <div class="card">
-                    <h2>Comparativo de Ofertas</h2>
-                    <div class="table-container">
-                        <table id="offers-table">
-                            <thead>
-                                <tr>
-                                    <th>Investimento</th>
-                                    <th>Remuneração</th>
-                                    <th>Prazo</th>
-                                    <th>Valor Final</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h2>Resultado</h2>
+                    <p id="result-text" class="result-text-main">
+                        Preencha os campos para ver a comparação.
+                    </p>
+                    <p class="info-text">
+                        Uma LCI/LCA que rende <strong id="res-lci">95%</strong> do CDI equivale a um CDB que rende <strong id="res-cdb">115.15%</strong> do CDI para o prazo de 12 meses.
+                    </p>
                 </div>
             </div>
         </main>

@@ -181,12 +181,11 @@ footer {
 }
 
 #info-card {
+    margin-bottom: 2rem;
     border-left: none;
-    margin-bottom: 2rem; 
 }
 
 #info-card h2 {
-    color: var(--cor-secundaria);
     border-bottom-color: var(--cor-secundaria);
 }
 
@@ -198,27 +197,14 @@ footer {
     margin-bottom: 0.5rem;
 }
 
-#info-card p {
-    color: var(--cor-texto-secundario);
-    font-size: 0.95rem;
-    margin-bottom: 0.75rem; 
-}
-
 #info-card ul {
     list-style-position: inside;
     padding-left: 10px;
     margin-top: 1rem;
-    color: var(--cor-texto-secundario);
 }
 
 #info-card li {
     margin-bottom: 0.5rem;
-}
-
-#info-card li strong,
-#info-card p strong {
-    color: var(--cor-texto);
-    font-weight: 600;
 }
 
 #info-card code {
@@ -229,4 +215,8 @@ footer {
     font-size: 0.9rem;
     color: var(--cor-primaria);
     font-weight: 600;
+}
+
+#info-card p {
+    margin-bottom: 0.75rem;
 }

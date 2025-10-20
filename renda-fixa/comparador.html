@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador Universal de Renda Fixa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="comparador.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+    <div class="menu">
+        <a href="../index.html">Início</a>
+    </div>
+    <h1>Comparador Universal de Renda Fixa</h1>
+    <p>Compare CDB, LCI, LCA e Tesouro Direto lado a lado</p>
+
+    <nav class="sub-nav">
+        <a href="tesourodireto.html">Tesouro Direto</a>
+        <a href="lci-lca.html">LCI vs CDB</a>
+        <a href="cdb.html">CDB</a>
+        <a href="comparador.html" class="active">Comparador</a>
+    </nav>
+</header>
+
+    <div class="card" id="info-card">
+        <h2>O que é este Comparador?</h2>
+        <p>Esta é a ferramenta mais completa do hub: o <strong>Comparador Universal de Renda Fixa</strong>. O objetivo dela é permitir uma comparação "maçã com maçã" entre diferentes tipos de investimentos.</p>
+        <p>A maior dificuldade ao comparar um CDB com uma LCI ou um Título do Tesouro é a diferença de impostos. Esta ferramenta resolve isso.</p>
+        
+        <h3>Como ela funciona?</h3>
+        <p>Ao adicionar um investimento na tabela, a ferramenta calcula o <strong>valor líquido final</strong> (o quanto você realmente resgataria), aplicando as regras corretas para cada um:</p>
+        
+        <ul>
+            <li><strong>CDBs:</strong> Calcula o rendimento e desconta o Imposto de Renda (IR).</li>
+            <li><strong>LCI/LCA:</strong> Calcula o rendimento e <strong>não</strong> desconta IR (são isentos).</li>
+            <li><strong>Tesouro Direto:</strong> Calcula o rendimento e desconta a Taxa da B3 e o Imposto de Renda.</li>
+        </ul>
+        <p>No final, a tabela te mostra qual investimento te dará o maior retorno líquido, destacando o melhor com um ⭐.</p>
+    </div>
+
+        <main>
+            <div class="column-controls">
+                <div class="card">
+                    <h2>Adicionar Investimento</h2>
+                    <form id="controls-form">
+                        
+                        <div class="form-group">
+                            <label for="investment-name">Nome (Ex: CDB Sofisa)</label>
+                            <input id="investment-name" type="text" placeholder="CDB Banco X 110%" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="principal">Valor a Investir (R$)</label>
+                            <input id="principal" type="number" value="10000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="months">Prazo (meses)</label>
+                            <input id="months" type="number" value="12" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="base-rate">Taxa Selic / CDI Anual (%)</label>
+                            <input id="base-rate" type="number" value="10.50" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="investment-type">Tipo de Investimento</label>
+                            <select id="investment-type">
+                                <option value="cdb">CDB</option>
+                                <option value="lci-lca">LCI / LCA</option>
+                                <option value="tesouro-selic">Tesouro Selic</option>
+                                <option value="tesouro-prefixado">Tesouro Prefixado</option>
+                                <option value="tesouro-ipca">Tesouro IPCA+</option>
+                            </select>
+                        </div>
+
+                        <div id="dynamic-fields">
+                            
+                            <div id="fields-cdb" class="dynamic-group">
+                                <div class="form-group">
+                                    <label for="rate-cdb">Rentabilidade (% do CDI)</label>
+                                    <input id="rate-cdb" type="number" value="110">
+                                </div>
+                            </div>
+
+                            <div id="fields-lci-lca" class="dynamic-group" style="display: none;">
+                                <div class="form-group">
+                                    <label for="rate-lci-lca">Rentabilidade (% do CDI)</label>
+                                    <input id="rate-lci-lca" type="number" value="95">
+                                </div>
+                            </div>
+                            
+                            <div id="fields-tesouro-prefixado" class="dynamic-group" style="display: none;">
+                                <div class="form-group">
+                                    <label for="rate-prefixado">Taxa Prefixada (% a.a.)</label>
+                                    <input id="rate-prefixado" type="number" value="11.0">
+                                </div>
+                            </div>
+
+                            <div id="fields-tesouro-ipca" class="dynamic-group" style="display: none;">
+                                <div class="form-group">
+                                    <label for="rate-ipca-estimado">Inflação Estimada (IPCA % a.a.)</label>
+                                    <input id="rate-ipca-estimado" type="number" value="4.5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rate-ipca-real">Taxa Real (% a.a.)</label>
+                                    <input id="rate-ipca-real" type="number" value="5.0">
+                                </div>
+                            </div>
+                            
+                            </div>
+                        
+                        <button type="submit" id="add-btn" class="btn-primary">Adicionar à Tabela</button>
+                        <div class="button-group">
+                            <button type="button" id="clear-btn" class="btn-danger">Limpar Tudo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="column-results">
+                <div class="card">
+                    <h2>Comparativo de Ofertas</h2>
+                    <div class="table-container">
+                        <table id="offers-table">
+                            <thead>
+                                <tr>
+                                    <th>Investimento</th>
+                                    <th>Tipo</th>
+                                    <th>Prazo</th>
+                                    <th>Valor Líquido Final</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="comparador.js"></script>
+</body>
+</html>
