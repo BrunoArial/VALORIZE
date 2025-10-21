@@ -21,8 +21,9 @@ Um dashboard completo e em tempo real do mercado de criptomoedas, dividido em:
 ### 3. Renda Fixa
 Um conjunto de simuladores focados nos principais investimentos de renda fixa do Brasil:
 * **Tesouro Direto:** Calcula o rendimento líquido do seu investimento no Tesouro, projetando o valor final já com os descontos do Imposto de Renda (IR) e da Taxa de Custódia da B3.
-* **LCI / LCA:** Um comparador de ofertas onde você insere a rentabilidade (% do CDI), o prazo e o valor a investir para analisar as melhores opções isentas de IR.
+* **LCI / LCA vs CDB:** Uma calculadora de equivalência que calcula qual a rentabilidade que um CDB precisaria ter para ser igual a uma LCI (e vice-versa), com base no prazo do investimento (que define a alíquota do imposto).
 * **CDB:** Simula o rendimento de um CDB Pós-Fixado (atrelado ao CDI), permitindo inserir aportes, prazo e a rentabilidade oferecida pelo banco.
+* **Comparador Universal: ** Um comparador que permite uma comparação "maçã com maçã" entre diferentes tipos de investimentos (todos apresentados na aba de renda fixa).
 
 ### 4. Índices Econômicos
 Um dashboard de indicadores econômicos que exibe os principais índices do mercado financeiro, separados entre:
