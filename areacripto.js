@@ -214,29 +214,39 @@ function updateDashboardKPI(data) {
   
   let ownedIds = Object.keys(WalletCripto.holdings);
   
-  // Preenche o Select apenas com as moedas que a pessoa POSSUI
-  if (select.children.length === 0 || select.dataset.needsUpdate) {
+  // Extrai as moedas que já estão no seletor e as que deveriam estar
+  const currentOptionsStr = Array.from(select.options).map(o => o.value).join(',');
+  const targetOptionsStr = ownedIds.length === 0 ? 'bitcoin' : ownedIds.join(',');
+
+  // Só recria a lista de opções se o usuário adicionou/removeu alguma cripto nova!
+  if (currentOptionsStr !== targetOptionsStr) {
+    const previousSelection = select.value; // Salva o que estava selecionado
     select.innerHTML = '';
+    
     if (ownedIds.length === 0) {
       select.innerHTML = '<option value="bitcoin">Bitcoin (Sugestão)</option>';
-      ownedIds = ['bitcoin']; // Padrão se não tiver nada
+      ownedIds = ['bitcoin']; 
     } else {
       ownedIds.forEach(id => {
         const coin = data.find(c => c.id === id);
         if(coin) select.innerHTML += `<option value="${id}">${coin.name}</option>`;
       });
     }
-    select.dataset.needsUpdate = false;
+    
+    // Se a moeda que estava selecionada ainda existir, mantém ela lá
+    if (Array.from(select.options).some(o => o.value === previousSelection)) {
+      select.value = previousSelection;
+    }
   }
 
-  // Pega a moeda selecionada
+  // Pega a moeda selecionada (agora sem o navegador resetar sozinho!)
   const selectedId = select.value || ownedIds[0];
   const coin = data.find(c => c.id === selectedId);
   
   if (coin) {
     const amountOwned = WalletCripto.holdings[selectedId] || 0;
     
-    // Matemática mágica: Se ele tem saldo, mostra o valor total. Se não, mostra o preço unitário.
+    // Matemática: Se tem saldo, mostra o valor total. Se não, mostra preço unitário.
     let valorExibido = amountOwned > 0 ? (amountOwned * coin.current_price) : coin.current_price;
     
     imgEl.src = coin.image;
@@ -254,7 +264,7 @@ function updateDashboardKPI(data) {
     sparkEl.innerHTML = createSparklineSVG(coin.sparkline_in_7d.price, isUp);
   }
   
-  // Se ele mudar no dropdown, atualiza na hora
+  // Atualiza na hora quando o usuário escolher outra opção
   select.onchange = () => updateDashboardKPI(data);
 }
 
