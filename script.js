@@ -21,14 +21,12 @@
     surface:    cssVar('--surface', '#ffffff'),
   };
 
-  // 2. DADOS DE MERCADO (Índices Globais)
+  // 2. DADOS DE MERCADO (Mock para visualização de Tabela)
   const MARKET_DATA = [
     { ticker: 'IBOV',  name: 'Ibovespa',          price: 132845.10, change:  0.84, spark: [128, 129, 130, 129, 131, 132, 132] },
     { ticker: 'IFIX',  name: 'Índice de FIIs',    price:   3412.55, change:  0.21, spark: [3380, 3390, 3395, 3400, 3402, 3408, 3412] },
     { ticker: 'USD',   name: 'Dólar comercial',   price:      5.18, change: -0.42, spark: [5.22, 5.21, 5.20, 5.21, 5.19, 5.19, 5.18] },
     { ticker: 'EUR',   name: 'Euro',              price:      5.61, change:  0.15, spark: [5.55, 5.57, 5.58, 5.59, 5.60, 5.60, 5.61] },
-    { ticker: 'BTC',   name: 'Bitcoin',           price:  362400.00, change:  2.31, spark: [350, 352, 355, 358, 360, 361, 362] },
-    { ticker: 'CDI',   name: 'CDI Acumulado',     price:     11.65, change:  0.00, spark: [11.65, 11.65, 11.65, 11.65, 11.65, 11.65, 11.65] },
   ];
 
   const TX_ICONS = {
@@ -68,7 +66,13 @@
     return 'wallet';
   }
 
-  // 4. MOTORES DE GRÁFICOS (Canvas)
+  // NOVA FUNÇÃO: Formata o eixo Y corretamente com "k" e "M" para não bugar o Canvas
+  function formatAxisVal(val) {
+    if (val >= 1000000) return `R$ ${(val / 1000000).toFixed(1).replace('.0', '')}M`;
+    if (val >= 1000) return `R$ ${(val / 1000).toFixed(1).replace('.0', '')}k`;
+    return `R$ ${Math.round(val)}`;
+  }
+
   // 4. MOTORES DE GRÁFICOS (Canvas)
   function setupCanvas(canvas) {
     const dpr = window.devicePixelRatio || 1;
@@ -89,17 +93,9 @@
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
-  // NOVA FUNÇÃO: Formata o eixo Y corretamente com "k" e "M"
-  function formatAxisVal(val) {
-    if (val >= 1000000) return `R$ ${(val / 1000000).toFixed(1).replace('.0', '')}M`;
-    if (val >= 1000) return `R$ ${(val / 1000).toFixed(1).replace('.0', '')}k`;
-    return `R$ ${Math.round(val)}`;
-  }
-
   function drawLineChart(canvas, { labels, series }) {
     const { ctx, w, h } = setupCanvas(canvas);
-    // CORREÇÃO: padding.left aumentado de 44 para 60 para não cortar o "R$"
-    const padding = { top: 16, right: 16, bottom: 28, left: 60 };
+    const padding = { top: 16, right: 16, bottom: 28, left: 60 }; // Aumentado para 60
     const chartW = w - padding.left - padding.right;
     const chartH = h - padding.top - padding.bottom;
     const allValues = series.flatMap((s) => s.data);
@@ -116,7 +112,6 @@
       const y = padding.top + (chartH * i) / 4;
       const value = yMax - (yRange * i) / 4;
       ctx.beginPath(); ctx.moveTo(padding.left, y); ctx.lineTo(padding.left + chartW, y); ctx.stroke();
-      // CORREÇÃO: Usa a função formatAxisVal
       ctx.fillText(formatAxisVal(value), padding.left - 8, y);
     }
 
@@ -148,8 +143,7 @@
 
   function drawBarChart(canvas, { labels, groups }) {
     const { ctx, w, h } = setupCanvas(canvas);
-    // CORREÇÃO: padding.left aumentado de 44 para 60 para não cortar o "R$"
-    const padding = { top: 16, right: 16, bottom: 28, left: 60 };
+    const padding = { top: 16, right: 16, bottom: 28, left: 60 }; // Aumentado para 60
     const chartW = w - padding.left - padding.right;
     const chartH = h - padding.top - padding.bottom;
     const max = Math.max(...groups.flatMap((g) => g.data)) * 1.15 || 1;
@@ -164,7 +158,6 @@
       const y = padding.top + (chartH * i) / 4;
       const value = max - (max * i) / 4;
       ctx.beginPath(); ctx.moveTo(padding.left, y); ctx.lineTo(padding.left + chartW, y); ctx.stroke();
-      // CORREÇÃO: Usa a função formatAxisVal
       ctx.fillText(formatAxisVal(value), padding.left - 8, y);
     }
 
@@ -184,6 +177,15 @@
       ctx.fillText(label, groupX + groupWidth / 2, padding.top + chartH + 8);
     });
   }
+
+  function buildSparkline(values, isUp) {
+    if(!values || !values.length) return '';
+    const min = Math.min(...values), max = Math.max(...values), range = max - min || 1;
+    const points = values.map((v, i) => `${(i / (values.length - 1)) * 80},${24 - ((v - min) / range) * 24}`).join(' ');
+    const color = isUp ? THEME.success : THEME.danger;
+    return `<svg class="spark" width="80" height="24" viewBox="0 0 80 24" aria-hidden="true"><polyline points="${points}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+
   // 5. BANCO DE DADOS LOCAL (LocalStorage)
   const CF_STORAGE_KEY = 'financial-hub:cashflow-tx-v2';
   const CF_RANGE_KEY   = 'financial-hub:cashflow-range';
@@ -210,7 +212,6 @@
     remove(id) { this.investments = this.investments.filter(i => i.id !== id); this.persist(); }
   };
 
-  // Funções de agregação de dados para os gráficos
   function buildBuckets(range) {
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const buckets = [];
@@ -244,14 +245,54 @@
     return result;
   }
 
+  // 6. INTEGRAÇÃO API BANCO CENTRAL (Selic e IPCA)
+  async function fetchEconomia() {
+    const kpiValorEl = document.getElementById('kpi-valor-economia');
+    const kpiPeriodoEl = document.getElementById('kpi-periodo-economia');
+    const seletorEconomia = document.getElementById('seletor-economia');
+    
+    if (!kpiValorEl || !seletorEconomia) return;
 
-  // 6. RENDERIZAÇÃO: DASHBOARD (index.html)
+    const endpoints = {
+      selic: 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json',
+      ipca: 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados/ultimos/1?formato=json'
+    };
+
+    const updateEconomiaCard = async () => {
+      const tipo = seletorEconomia.value;
+      kpiValorEl.textContent = 'Carregando...';
+      
+      try {
+        const response = await fetch(endpoints[tipo]);
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          const valorFormatado = parseFloat(data[0].valor).toFixed(2).replace('.', ',');
+          kpiValorEl.textContent = `${valorFormatado}%`;
+          
+          if (tipo === 'selic') {
+             kpiPeriodoEl.textContent = `Taxa ao dia (Ref: ${data[0].data})`;
+          } else {
+             kpiPeriodoEl.textContent = `Taxa no mês (Ref: ${data[0].data})`;
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados do Banco Central:", error);
+        kpiValorEl.textContent = 'Erro';
+        kpiPeriodoEl.textContent = 'Indisponível no momento';
+      }
+    };
+
+    seletorEconomia.addEventListener('change', updateEconomiaCard);
+    updateEconomiaCard();
+  }
+
+  // 7. RENDERIZAÇÃO: DASHBOARD (index.html)
   let dashCashflowRange = 'monthly';
   
   function renderAll() {
     CF.load(); RF.load(); 
     
-    // Calcula totais de Fluxo de Caixa
     const agg = aggregateByRange('monthly'); 
     const cIdx = agg.income.length - 1;
     const currentIncome = agg.income[cIdx] || 0;
@@ -259,14 +300,12 @@
     const prevIncome = agg.income[cIdx - 1] || 0;
     const prevExpense = agg.expense[cIdx - 1] || 0;
 
-    // Atualiza Textos de Receita e Despesa
     const kpiIncomeEl = document.querySelector('[data-kpi="income"] .kpi__value');
     if (kpiIncomeEl) kpiIncomeEl.textContent = fmtBRL(currentIncome, { minimumFractionDigits: 2 });
     
     const kpiExpenseEl = document.querySelector('[data-kpi="expense"] .kpi__value');
     if (kpiExpenseEl) kpiExpenseEl.textContent = fmtBRL(currentExpense, { minimumFractionDigits: 2 });
 
-    // Atualiza Tendências (Verde/Vermelho)
     const updateTrend = (kpiName, curr, prev) => {
       const trendEl = document.querySelector(`[data-kpi="${kpiName}"] .trend`);
       if (!trendEl) return;
@@ -282,7 +321,6 @@
     updateTrend('income', currentIncome, prevIncome);
     updateTrend('expense', currentExpense, prevExpense);
 
-    // Gráfico: Evolução Renda Fixa
     const totalRF = RF.investments.reduce((sum, inv) => sum + inv.amount, 0);
     const perfCanvas = document.getElementById('chart-performance');
     if (perfCanvas) {
@@ -300,10 +338,9 @@
       });
     }
 
-    // Gráfico: Fluxo de Caixa (Dashboard)
     renderDashCashflow();
 
-    // Tabela: Índices de Mercado
+    // Aqui a tabela de Índices é montada na Visão Geral
     const tbodyMarket = document.querySelector('#market-table tbody');
     if (tbodyMarket) {
       tbodyMarket.innerHTML = MARKET_DATA.map(m => {
@@ -312,6 +349,7 @@
       }).join('');
     }
 
+    // Aciona a busca no Banco Central para preencher o Card
     fetchEconomia();
   }
 
@@ -342,11 +380,10 @@
   }
 
 
-  // 7. RENDERIZAÇÃO: FLUXO DE CAIXA (fluxodecaixa.html)
+  // 8. RENDERIZAÇÃO: FLUXO DE CAIXA (fluxodecaixa.html)
   function renderCashflow() {
     const agg = aggregateByRange(CF.range);
     
-    // Gráfico
     const canvas = document.getElementById('chart-cashflow-main');
     if (canvas) {
       const hasData = agg.income.some(v => v > 0) || agg.expense.some(v => v > 0);
@@ -359,7 +396,6 @@
       }
     }
 
-    // KPIs
     const totalIncome  = agg.income.reduce((a, b) => a + b, 0);
     const totalExpense = agg.expense.reduce((a, b) => a + b, 0);
     const balance = totalIncome - totalExpense;
@@ -376,7 +412,6 @@
       trend.textContent = `${margin >= 0 ? '+' : ''}${margin.toFixed(2).replace('.', ',')}%`;
     }
 
-    // Listas de Lançamentos
     const all = [...CF.transactions].sort((a, b) => (a.date < b.date ? 1 : -1));
     const incs = all.filter(t => t.type === 'income');
     const exps = all.filter(t => t.type === 'expense');
@@ -451,12 +486,11 @@
   }
 
 
-  // 8. RENDERIZAÇÃO: RENDA FIXA (rendafixa.html)
+  // 9. RENDERIZAÇÃO: RENDA FIXA (rendafixa.html)
   function renderRendaFixa() {
     const tbody = document.getElementById('rf-list');
     if (!tbody) return;
     
-    // Tabela
     if (!RF.investments.length) {
       tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 24px;">Nenhum ativo de Renda Fixa cadastrado.</td></tr>';
     } else {
@@ -479,7 +513,6 @@
       }).join('');
     }
 
-    // KPIs
     const total = RF.investments.reduce((s, i) => s + i.amount, 0);
     const $ = (id) => document.getElementById(id);
     if ($('rf-total-invested')) $('rf-total-invested').textContent = fmtBRL(total);
@@ -541,19 +574,16 @@
   }
 
 
-  // 9. BOOTSTRAP (Inicialização)
+  // 10. BOOTSTRAP (Inicialização)
   document.addEventListener('DOMContentLoaded', () => {
-    // Identifica em qual página o usuário está
     const isCashflow = window.location.pathname.includes('fluxodecaixa') || !!document.getElementById('chart-cashflow-main');
     const isRendaFixa = window.location.pathname.includes('rendafixa') || !!document.getElementById('rf-form');
 
     if (isCashflow) {
-      // Ativa as funções do Fluxo de Caixa
       CF.load(); 
       bindCashflowForm();
       renderCashflow();
       
-      // Chips do gráfico da aba de fluxo de caixa
       document.querySelectorAll('#cf-period .chip').forEach((chip) => {
         chip.addEventListener('click', (e) => {
           document.querySelectorAll('#cf-period .chip').forEach(c => c.classList.remove('is-active'));
@@ -563,31 +593,26 @@
         });
       });
 
-      // Lixeira do fluxo de caixa
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-action="remove"]');
         if (btn) { CF.remove(btn.dataset.id); renderCashflow(); }
       });
 
     } else if (isRendaFixa) {
-      // Ativa as funções da Renda Fixa
       RF.load(); 
       bindRFForm(); 
       renderRendaFixa();
       
-      // Lixeira da renda fixa
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-action="remove-rf"]');
         if (btn) { RF.remove(btn.dataset.id); renderRendaFixa(); }
       });
 
     } else {
-      // Ativa as funções do Dashboard Principal
       bindDashCashflowChips();
       renderAll();
     }
 
-    // Botão de Limpeza Global do Banco de Dados
     const configBtn = document.querySelector('.sidebar__footer .nav__item');
     if (configBtn) {
       configBtn.addEventListener('click', (e) => {
@@ -599,7 +624,6 @@
       });
     }
 
-    // Relógio e Redimensionamento
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
@@ -613,54 +637,4 @@
     updateTime(); setInterval(updateTime, 60000);
   });
 
-  // 10. INTEGRAÇÃO API BANCO CENTRAL (Selic e IPCA)
-  async function fetchEconomia() {
-    const kpiValorEl = document.getElementById('kpi-valor-economia');
-    const kpiPeriodoEl = document.getElementById('kpi-periodo-economia');
-    const seletorEconomia = document.getElementById('seletor-economia');
-    
-    if (!kpiValorEl || !seletorEconomia) return;
-
-    // Códigos das séries temporais no BCB:
-    // 11: Taxa de juros - Selic (% a.d.)
-    // 433: Índice nacional de preços ao consumidor-amplo (IPCA) (% a.m.)
-    
-    const endpoints = {
-      selic: 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json',
-      ipca: 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados/ultimos/1?formato=json'
-    };
-
-    // Função interna para buscar e atualizar o valor
-    const updateEconomiaCard = async () => {
-      const tipo = seletorEconomia.value; // 'selic' ou 'ipca'
-      kpiValorEl.textContent = 'Carregando...';
-      
-      try {
-        const response = await fetch(endpoints[tipo]);
-        const data = await response.json();
-        
-        if (data && data.length > 0) {
-          const valorFormatado = parseFloat(data[0].valor).toFixed(2).replace('.', ',');
-          kpiValorEl.textContent = `${valorFormatado}%`;
-          
-          // Ajusta a legenda de acordo com a seleção
-          if (tipo === 'selic') {
-             kpiPeriodoEl.textContent = `Taxa ao dia (Ref: ${data[0].data})`;
-          } else {
-             kpiPeriodoEl.textContent = `Taxa no mês (Ref: ${data[0].data})`;
-          }
-        }
-      } catch (error) {
-        console.error("Erro ao buscar dados do Banco Central:", error);
-        kpiValorEl.textContent = 'Erro';
-        kpiPeriodoEl.textContent = 'Indisponível no momento';
-      }
-    };
-
-    // Adiciona o ouvinte de mudança no dropdown
-    seletorEconomia.addEventListener('change', updateEconomiaCard);
-    
-    // Faz a primeira chamada imediata
-    updateEconomiaCard();
-  }
 })();
