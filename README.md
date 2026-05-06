@@ -1,54 +1,57 @@
-# VALORIZE - Hub de Finanças
+# VALORIZE | Dashboard Financeiro Inteligente
 
-**Link do Projeto: [https://brunoarial.github.io/VALORIZE/](https://brunoarial.github.io/VALORIZE/)**
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript (Vanilla)](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![API Integração](https://img.shields.io/badge/API-Integração-00529B?style=for-the-badge)
 
-## Sobre o Projeto
+O **Valorize** nasceu com um propósito educacional: democratizar o entendimento financeiro. Ao longo do seu desenvolvimento, o projeto evoluiu e pivotou para se tornar um **Smart Dashboard Financeiro** completo, permitindo que os usuários não apenas aprendam sobre finanças, mas gerenciem seu fluxo de caixa, renda fixa e criptoativos em um único ecossistema seguro e responsivo.
 
-O **VALORIZE** é um hub de finanças completo, projetado como um ponto de partida ideal para investidores iniciantes. A plataforma oferece um conjunto de dashboards e ferramentas interativas que simplificam a compreensão do mercado financeiro, permitindo simulações, acompanhamento de cotações em tempo real e cálculos de rentabilidade de forma clara e acessível.
+ **[Acesse o projeto ao vivo aqui]** *(https://brunoarial.github.io/VALORIZE/)*
 
-## Funcionalidades Principais
+---
 
-A plataforma é dividida em quatro grandes seções:
+##  Funcionalidades e Ecossistema
 
-### 1. Máquina do Tempo (Backtesting)
-Uma poderosa ferramenta de *backtesting* que permite ao usuário "voltar no tempo". Ela simula o que teria acontecido se você tivesse investido um valor fixo, todo mês, em um ou mais ativos da bolsa de valores (utilizando dados da API Brapi).
+O hub é dividido em módulos inteligentes que conversam entre si, consolidando os dados em um Dashboard central (Visão Geral).
 
-### 2. Área Cripto
-Um dashboard completo e em tempo real do mercado de criptomoedas, dividido em:
-* **Gráfico Principal:** Um gráfico interativo de velas fornecido pelo TradingView.
-* **Cards de Cotação:** Uma grade com as principais criptomoedas do mercado (Bitcoin, Ethereum, etc.), exibindo preço em R$, variação 24h e outros dados fornecidos pela API da CoinGecko, com atualização automática.
+###  Visão Geral (Dashboard)
+* **Gráficos Dinâmicos:** Comparativo de Evolução Patrimonial x CDI e Fluxo de Caixa, renderizados nativamente via Canvas API.
+* **Índices Econômicos (Simulação Arquitetural):** A exibição de índices como Ibovespa, IFIX, Dólar e Euro foi estruturada através de uma simulação local de dados (`MOCK_DATA`). Essa decisão técnica foi tomada pois APIs de mercado financeiro tradicionais em tempo real possuem custos elevados ou restrições severas de requisições (*rate limits*). O mock demonstra a capacidade da interface de gerar mini-gráficos (sparklines) dinâmicos e tratar variações percentuais sem depender de serviços terceiros onerosos.
+* **Carteira Cripto Consolidada:** Leitura instantânea do portfólio de criptomoedas, convertendo o saldo do usuário para BRL em tempo real com gráficos gerados em SVG puro.
 
-### 3. Renda Fixa
-Um conjunto de simuladores focados nos principais investimentos de renda fixa do Brasil:
-* **Tesouro Direto:** Calcula o rendimento líquido do seu investimento no Tesouro, projetando o valor final já com os descontos do Imposto de Renda (IR) e da Taxa de Custódia da B3.
-* **LCI / LCA vs CDB:** Uma calculadora de equivalência que calcula qual a rentabilidade que um CDB precisaria ter para ser igual a uma LCI (e vice-versa), com base no prazo do investimento (que define a alíquota do imposto).
-* **CDB:** Simula o rendimento de um CDB Pós-Fixado (atrelado ao CDI), permitindo inserir aportes, prazo e a rentabilidade oferecida pelo banco.
-* **Comparador Universal: ** Um comparador que permite uma comparação "maçã com maçã" entre diferentes tipos de investimentos (todos apresentados na aba de renda fixa).
+###  Fluxo de Caixa
+* Lançamento de Receitas e Despesas com categorização inteligente.
+* Motor de busca que identifica palavras-chave na descrição (ex: "Ifood", "Uber", "Salário") e atribui ícones automáticos aos lançamentos.
+* Exportação nativa do histórico financeiro para `.CSV` (compatível com Excel/Sheets).
 
-### 4. Índices Econômicos
-Um dashboard de indicadores econômicos que exibe os principais índices do mercado financeiro, separados entre:
-* **Nacionais:** IBOVESPA, IFIX, SELIC, CDI, etc.
-* **Globais:** S&P 500, NASDAQ, DOW JONES, etc.
+###  Renda Fixa
+* Gestão de ativos (CDB, LCI, LCA, Tesouro Direto).
+* Cálculo automático de dias restantes para o vencimento de cada título.
+* O motor de gráficos simula o crescimento da carteira de trás para frente, criando uma curva de evolução patrimonial baseada na matemática de juros compostos.
 
-## Tecnologias Utilizadas
+###  Criptomoedas
+* Integração com a API da **CoinGecko** para cotações globais em BRL, volume 24h e variação de mercado de forma gratuita e fluida.
+* Gestor de saldo local: o usuário informa quanto possui de cada moeda, e a plataforma calcula o patrimônio instantaneamente.
+* Injeção sob demanda do widget do **TradingView**: ao clicar em qualquer moeda, um gráfico profissional de candlesticks é renderizado na tela para análise técnica.
 
-Este projeto foi construído puramente com tecnologias web front-end, sem a necessidade de frameworks complexos:
+---
 
-* **HTML5**
-* **CSS3** (com design responsivo)
-* **JavaScript (ES6+)** (para lógica, cálculos e consumo de APIs)
+## 🛠️ Decisões de Arquitetura e Engenharia
 
-## APIs e Serviços Externos
+Este projeto foi construído **sem o uso de frameworks (Vanilla JS)** para consolidar e demonstrar um domínio profundo dos fundamentos do desenvolvimento web.
 
-Os dados dinâmicos do projeto são consumidos em tempo real das seguintes fontes:
+1. **Gráficos Nativos (Canvas API):**
+   * Nenhuma biblioteca de terceiros (como Chart.js ou ApexCharts) foi utilizada. Desenvolvi um motor de renderização gráfica do zero usando o `<canvas>` do HTML5. Isso garante alta performance, manipulação direta de pixels e controle total sobre o escalonamento responsivo (DPR - Device Pixel Ratio) para telas de alta resolução.
+2. **Privacidade por Design (Privacy-First):**
+   * O sistema opera com a arquitetura `Zero-Backend`. Todos os dados financeiros inseridos pelo usuário são associados a IDs únicos (UUIDs) e armazenados exclusivamente no `localStorage` do navegador. Nenhum dado financeiro trafega pela rede de forma descriptografada, garantindo 100% de privacidade ao usuário.
+3. **UI/UX e Design System:**
+   * Interface moderna baseada em tokens CSS (CSS Variables), garantindo consistência visual (cores, espaçamentos, tipografia) e facilitando a implementação futura de temas alternativos (ex: Dark Mode). Layout totalmente responsivo utilizando CSS Grid e Flexbox.
 
-* **[Brapi](https://brapi.dev/)**: Fornece os dados históricos de ações para a "Máquina do Tempo".
-* **[CoinGecko API](https://www.coingecko.com/pt/api)**: Alimenta a "Área Cripto" com preços e variações.
-* **[TradingView Widgets](https://br.tradingview.com/)**: Utilizado para o gráfico de velas interativo.
+---
 
-## Como Acessar o Projeto
+## Sobre o Autor
+Desenvolvido por Bruno Arial Ramos, estudante de Engenharia da Computação.
+Este projeto reflete minha paixão por criar interfaces limpas e arquiteturas de software eficientes, unindo o desenvolvimento Front-end ao consumo inteligente de APIs, matemática financeira e estruturas de dados no lado do cliente.
 
-### Acesso Online (Deploy)
-O projeto está hospedado no GitHub Pages e pode ser acessado diretamente pelo link:
-
-**[https://brunoarial.github.io/VALORIZE/](https://brunoarial.github.io/VALORIZE/)**
+💼 LinkedIn: https://linkedin.com/in/brunoarial • 💻 GitHub: https://github.com/BrunoArial • 📧 brunoarial@gmail.com

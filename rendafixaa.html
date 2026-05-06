@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Gestão de carteira de Renda Fixa: CDB, LCI, LCA e Tesouro Direto." />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Renda Fixa | Financial Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <div class="app">
+      <!-- ========== Barra Lateral ========== -->
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">
+            <div class="brand__mark" aria-hidden="true">
+            <!-- Certifique-se de que o nome do arquivo aqui está exatamente igual ao nome da imagem na sua pasta -->
+            <img src="valorizeloggo.png" alt="Logo Valorize" style="width: 67%; height: 67%; object-fit: cover; border-radius: 10px;">
+          </div>
+              <path d="M3 17l6-6 4 4 8-8" />
+              <path d="M14 7h7v7" />
+            </svg>
+          </div>
+          <div class="brand__text">
+            <strong>VALORIZE</strong>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Seções do hub">
+          <ul>
+            <li><a href="index.html" class="nav__item" aria-current="page">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+              </span>
+              Visão Geral
+            </a></li>
+            <li><a href="fluxodecaixa.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+              </span>
+              Fluxo de Caixa 
+            </a></li>
+            <li><a href="rendafixaa.html" class="nav__item is-active">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              Renda Fixa
+            </a></li>
+            <li><a href="criptomoedas.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v8"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+              </span>
+              Criptomoedas
+            </a></li>
+            
+          </ul>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a href="#" class="nav__item">
+            <span class="nav__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+            </span>
+            Configurações
+          </a>
+        </div>
+      </aside>
+
+      <!-- ========== MAIN ========== -->
+      <main class="main" id="main">
+        <header class="topbar">
+          <div class="topbar__title">
+            <h1>Renda Fixa</h1>
+            <p>Gerencie sua carteira de CDBs, Tesouro Direto, LCIs e LCAs com segurança.</p>
+          </div>
+          <div class="topbar__tools">
+            <div class="user">
+              <div class="user__avatar" aria-hidden="true">BR</div>
+              <div class="user__info">
+                <strong>Bruno Arial</strong>
+                <span>Investidor</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ========== SUMMARY KPIs ========== -->
+        <section class="kpis kpis--3" aria-label="Resumo da Renda Fixa">
+          <article class="card kpi">
+            <header class="kpi__head">
+              <span class="kpi__label">Total Investido</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" id="rf-total-invested">R$ 0,00</div>
+            <footer class="kpi__foot">
+              <span class="kpi__period" id="rf-count">em 0 ativo(s)</span>
+            </footer>
+          </article>
+
+          <article class="card kpi">
+            <header class="kpi__head">
+              <span class="kpi__label">Rendimento Estimado (Mês)</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" id="rf-rendimento-simulado">+ R$ 0,00</div>
+            <footer class="kpi__foot">
+              <span class="trend trend--up">Simulação Bruta (1% a.m.)</span>
+            </footer>
+          </article>
+
+          <article class="card kpi">
+            <header class="kpi__head">
+              <span class="kpi__label">Próximo Vencimento</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" style="font-size: 18px;" id="rf-next-date">--/--/----</div>
+            <footer class="kpi__foot">
+              <span class="trend" style="background: transparent; color: var(--text-muted);" id="rf-next-days">-</span>
+              <span class="kpi__period" id="rf-next-sub">Nenhum ativo cadastrado</span>
+            </footer>
+          </article>
+        </section>
+
+        <!-- ========== ENTRY FORM ========== -->
+        <section aria-labelledby="form-title">
+          <article class="card form-card">
+            <header class="card__head card__head--wrap">
+              <div>
+                <h2 class="card__title" id="form-title">Nova Aplicação</h2>
+                <p class="card__sub">Cadastre um novo título de Renda Fixa na sua carteira.</p>
+              </div>
+            </header>
+
+            <form id="rf-form" class="tx-form" novalidate>
+              <div class="field">
+                <label class="field__label" for="rf-type">Ativo</label>
+                <input class="field__input" id="rf-type" type="text" placeholder="Ex.: CDB, LCI, Tesouro IPCA" list="rf-type-options" required />
+                <datalist id="rf-type-options">
+                  <option value="CDB"></option>
+                  <option value="LCI"></option>
+                  <option value="LCA"></option>
+                  <option value="Tesouro Selic"></option>
+                  <option value="Tesouro IPCA+"></option>
+                </datalist>
+              </div>
+              <div class="field">
+                <label class="field__label" for="rf-inst">Instituição / Emissor</label>
+                <input class="field__input" id="rf-inst" type="text" placeholder="Ex.: Banco Itaú, XP" required />
+              </div>
+              <div class="field field--amount">
+                <label class="field__label" for="rf-amount">Valor Aplicado (R$)</label>
+                <input class="field__input field__input--mono" id="rf-amount" type="number" step="0.01" min="0" placeholder="0,00" required />
+              </div>
+              <div class="field">
+                <label class="field__label" for="rf-rate">Taxa Contratada</label>
+                <input class="field__input field__input--mono" id="rf-rate" type="text" placeholder="Ex.: 110% CDI" required />
+              </div>
+              <div class="field field--date">
+                <label class="field__label" for="rf-date">Vencimento</label>
+                <input class="field__input" id="rf-date" type="date" required />
+              </div>
+              <div class="field field--submit">
+                <button class="btn btn--primary btn--block" type="submit">Adicionar Título</button>
+              </div>
+              <p class="form-feedback" id="rf-feedback" role="status" aria-live="polite"></p>
+            </form>
+          </article>
+        </section>
+
+        <!-- ========== WALLET TABLE ========== -->
+        <section class="grid">
+          <article class="card chart-card chart-card--full">
+            <header class="card__head">
+              <div>
+                <h2 class="card__title">Minha Carteira</h2>
+                <p class="card__sub">Todos os seus títulos de renda fixa detalhados</p>
+              </div>
+            </header>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Ativo / Emissor</th>
+                    <th scope="col">Indexador</th>
+                    <th scope="col" class="num">Taxa</th>
+                    <th scope="col" class="num">Vencimento</th>
+                    <th scope="col" class="num">Valor Aplicado</th>
+                    <th scope="col" class="num hide-sm">Saldo Atual</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <!-- O id="rf-list" AQUI É O QUE FALTAVA! -->
+                <tbody id="rf-list">
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <footer class="footer">
+          <span>© 2026 Financial Hub. Dados salvos localmente.</span>
+        </footer>
+      </main>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Acompanhamento em tempo real de Criptomoedas e Ativos Digitais." />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Criptomoedas | Financial Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    
+    <!-- CSS Adicional específico para os cards de cripto -->
+    <style>
+      .crypto-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 16px;
+      }
+      
+      .coin {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      .coin:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+        border-color: var(--primary);
+      }
+      
+      .coin__header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .coin__header img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+      
+      .coin__title h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+      }
+      
+      .coin__title span {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+      
+      .coin__price {
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 700;
+        margin: 8px 0 0 0;
+      }
+      
+      .coin__meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: var(--text-muted);
+        padding-top: 12px;
+        border-top: 1px solid var(--border-strong);
+      }
+      
+      .coin__meta-value {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        color: var(--text);
+      }
+      
+      .positive { color: var(--success); }
+      .negative { color: var(--danger); }
+      
+      /* Container para o TradingView */
+      .tv-container {
+        margin-top: 32px;
+        width: 100%;
+        height: 500px;
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        display: none; /* Escondido até o usuário clicar num card */
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <div class="app">
+      <!-- ========== Barra Lateral ========== -->
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">
+            <div class="brand__mark" aria-hidden="true">
+            <!-- Certifique-se de que o nome do arquivo aqui está exatamente igual ao nome da imagem na sua pasta -->
+            <img src="valorizeloggo.png" alt="Logo Valorize" style="width: 67%; height: 67%; object-fit: cover; border-radius: 10px;">
+          </div>
+              <path d="M3 17l6-6 4 4 8-8" />
+              <path d="M14 7h7v7" />
+            </svg>
+          </div>
+          <div class="brand__text">
+            <strong>VALORIZE</strong>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Seções do hub">
+          <ul>
+            <li><a href="index.html" class="nav__item" aria-current="page">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+              </span>
+              Visão Geral
+            </a></li>
+            <li><a href="fluxodecaixa.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+              </span>
+              Fluxo de Caixa 
+            </a></li>
+            <li><a href="rendafixaa.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              Renda Fixa
+            </a></li>
+            <li><a href="criptomoedas.html" class="nav__item is-active">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v8"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+              </span>
+              Criptomoedas
+            </a></li>
+            
+          </ul>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a href="#" class="nav__item">
+            <span class="nav__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+            </span>
+            Configurações
+          </a>
+        </div>
+      </aside>
+
+      <!-- ========== MAIN ========== -->
+      <main class="main" id="main">
+        <header class="topbar">
+          <div class="topbar__title">
+            <h1>Criptomoedas</h1>
+            <p>Acompanhe as cotações em tempo real e analise o mercado.</p>
+          </div>
+          <div class="topbar__tools">
+             <span class="status" aria-live="polite">
+                <i class="status__dot"></i> API Live
+              </span>
+            <div class="user">
+              <div class="user__avatar" aria-hidden="true">BR</div>
+              <div class="user__info">
+                <strong>Bruno Arial</strong>
+                <span>Investidor</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section aria-label="Mercado de Criptomoedas">
+           <!-- ========== WALLET FORM ========== -->
+          <article class="card form-card" style="margin-bottom: 24px;">
+            <header class="card__head card__head--wrap">
+              <div>
+                <h2 class="card__title">Meu Saldo Cripto</h2>
+                <p class="card__sub">Informe a quantidade que você possui para acompanhar o valor convertido no Dashboard.</p>
+              </div>
+            </header>
+            <form id="crypto-form" class="tx-form" novalidate style="grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr) 160px;">
+              <div class="field">
+                <label class="field__label" for="crypto-select">Criptomoeda</label>
+                <select class="field__input" id="crypto-select" required>
+                  <option value="" disabled selected>Carregando moedas...</option>
+                </select>
+              </div>
+              <div class="field field--amount">
+                <label class="field__label" for="crypto-amount">Quantidade na carteira</label>
+                <input class="field__input field__input--mono" id="crypto-amount" type="number" step="0.000001" min="0" placeholder="Ex: 0.05" required />
+              </div>
+              <div class="field field--submit">
+                <button class="btn btn--primary btn--block" type="submit">Salvar Saldo</button>
+              </div>
+              <p class="form-feedback" id="crypto-feedback" role="status" aria-live="polite" style="grid-column: 1 / -1; margin-top: -8px;"></p>
+            </form>
+          </article> 
+          <!-- Widget do TradingView (Aparece ao clicar num card) -->
+          <div id="tv-widget-container" class="tv-container">
+             <!-- O iframe do TradingView será injetado aqui -->
+          </div>
+
+          <!-- Grid onde os cards das moedas serão injetados -->
+          <div id="coins" class="crypto-grid">
+            <div style="padding: 40px; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">
+              Carregando dados do mercado...
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <span>© 2026 Financial Hub. Dados fornecidos por CoinGecko.</span>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Seus scripts -->
+    <script src="script.js" defer></script>
+    <script src="areacripto.js" defer></script>
+  </body>
+</html>

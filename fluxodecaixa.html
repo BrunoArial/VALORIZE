@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Página de fluxo de caixa do Financial Hub: cadastre receitas e despesas, compare períodos e exporte os dados para planilha."
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Fluxo de Caixa | Financial Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <div class="app">
+      <!-- ========== SIDEBAR ========== -->
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">
+            <div class="brand__mark" aria-hidden="true">
+            <!-- Certifique-se de que o nome do arquivo aqui está exatamente igual ao nome da imagem na sua pasta -->
+            <img src="valorizeloggo.png" alt="Logo Valorize" style="width: 67%; height: 67%; object-fit: cover; border-radius: 10px;">
+          </div>
+              <path d="M3 17l6-6 4 4 8-8" />
+              <path d="M14 7h7v7" />
+            </svg>
+          </div>
+          <div class="brand__text">
+            <strong>VALORIZE</strong>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Seções do hub">
+          <ul>
+            <li><a href="index.html" class="nav__item" aria-current="page">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+              </span>
+              Visão Geral
+            </a></li>
+            <li><a href="fluxodecaixa.html" class="nav__item is-active">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+              </span>
+              Fluxo de Caixa 
+            </a></li>
+            <li><a href="rendafixaa.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              Renda Fixa
+            </a></li>
+            <li><a href="criptomoedas.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v8"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+              </span>
+              Criptomoedas
+            </a></li>
+            
+          </ul>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a href="#" class="nav__item">
+            <span class="nav__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+            </span>
+            Configurações
+          </a>
+        </div>
+      </aside>
+
+      <!-- ========== MAIN ========== -->
+      <main class="main" id="main">
+        <!-- Topbar -->
+        <header class="topbar">
+          <div class="topbar__title">
+            <h1>Fluxo de Caixa</h1>
+            <p>Cadastre suas receitas e despesas e acompanhe o comparativo em tempo real.</p>
+          </div>
+
+          <div class="topbar__tools">
+            <button class="btn btn--ghost" type="button" aria-label="Notificações">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9z"/><path d="M10 21a2 2 0 004 0"/></svg>
+              <span class="badge-dot" aria-hidden="true"></span>
+            </button>
+
+            <div class="user">
+              <div class="user__avatar" aria-hidden="true">BR</div>
+              <div class="user__info">
+                <strong>Bruno Arial</strong>
+                <span>Investidor</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ========== NOVO LANÇAMENTO ========== -->
+        <section aria-labelledby="form-title">
+          <article class="card form-card">
+            <header class="card__head card__head--wrap">
+              <div>
+                <h2 class="card__title" id="form-title">Novo lançamento</h2>
+                <p class="card__sub">Adicione receitas ou despesas — o gráfico e os totais são atualizados automaticamente.</p>
+              </div>
+            </header>
+
+            <form id="tx-form" class="tx-form" novalidate>
+              <div class="field field--type">
+                <span class="field__label">Tipo</span>
+                <div class="segmented" role="radiogroup" aria-label="Tipo de lançamento">
+                  <input type="radio" name="tx-type" id="tx-type-income" value="income" checked />
+                  <label for="tx-type-income" class="segmented__opt segmented__opt--income">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                    Receita
+                  </label>
+                  <input type="radio" name="tx-type" id="tx-type-expense" value="expense" />
+                  <label for="tx-type-expense" class="segmented__opt segmented__opt--expense">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                    Despesa
+                  </label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="tx-desc">Descrição</label>
+              <input class="field__input" id="tx-desc" name="desc" type="text" placeholder="Ex.: Salário, Aluguel, Mercado..." required />
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="tx-cat">Categoria</label>
+                <input class="field__input" id="tx-cat" name="cat" type="text" placeholder="Ex.: Moradia, Renda fixa..." list="tx-cat-options" />
+                <datalist id="tx-cat-options">
+                  <option value="Renda fixa"></option>
+                  <option value="Renda extra"></option>
+                  <option value="Investimentos"></option>
+                  <option value="Imóveis"></option>
+                  <option value="Moradia"></option>
+                  <option value="Alimentação"></option>
+                  <option value="Transporte"></option>
+                  <option value="Saúde"></option>
+                  <option value="Lazer"></option>
+                  <option value="Utilidades"></option>
+                  <option value="Outros"></option>
+                </datalist>
+              </div>
+
+              <div class="field field--date">
+                <label class="field__label" for="tx-date">Data</label>
+                <input class="field__input" id="tx-date" name="date" type="date" required />
+              </div>
+
+              <div class="field field--amount">
+                <label class="field__label" for="tx-amount">Valor (R$)</label>
+                <input class="field__input field__input--mono" id="tx-amount" name="amount" type="number" step="0.01" min="0" inputmode="decimal" placeholder="0,00" required />
+              </div>
+
+              <div class="field field--submit">
+                <button class="btn btn--primary btn--block" type="submit">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                  Adicionar
+                </button>
+              </div>
+
+              <p class="form-feedback" id="tx-feedback" role="status" aria-live="polite"></p>
+            </form>
+          </article>
+        </section>
+
+        <!-- ========== RESUMO KPIs ========== -->
+        <section class="kpis kpis--3" aria-label="Resumo do fluxo de caixa">
+          <article class="card kpi">
+            <header class="kpi__head">
+              <span class="kpi__label">Total de receitas</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" id="kpi-income">R$ 0,00</div>
+            <footer class="kpi__foot">
+              <span class="kpi__period" id="kpi-income-sub">no período selecionado</span>
+            </footer>
+          </article>
+
+          <article class="card kpi">
+            <header class="kpi__head">
+              <span class="kpi__label">Total de despesas</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" id="kpi-expense">R$ 0,00</div>
+            <footer class="kpi__foot">
+              <span class="kpi__period" id="kpi-expense-sub">no período selecionado</span>
+            </footer>
+          </article>
+
+          <article class="card kpi">
+            <header class="kpi__head">
+              <span class="kpi__label">Histórico de caixa</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" id="kpi-balance">R$ 0,00</div>
+            <footer class="kpi__foot">
+              <span class="trend" id="kpi-balance-trend">+ 0,00%</span>
+              <span class="kpi__period">margem do período</span>
+            </footer>
+          </article>
+        </section>
+
+        <!-- ========== GRÁFICO DE COMPARAÇÃO ========== -->
+        <section class="grid">
+          <article class="card chart-card chart-card--full">
+            <header class="card__head card__head--wrap">
+              <div>
+                <h2 class="card__title">Receitas x Despesas</h2>
+                <p class="card__sub" id="chart-period-sub">Comparativo mensal — atualizado em tempo real</p>
+              </div>
+              <div class="card__head-actions">
+                <div class="chip-group" id="cf-period" role="tablist" aria-label="Período de visualização">
+                  <button class="chip is-active" type="button" role="tab" aria-selected="true" data-range="monthly">Mensal</button>
+                  <button class="chip" type="button" role="tab" data-range="quarterly">Trimestral</button>
+                  <button class="chip" type="button" role="tab" data-range="yearly">Anual</button>
+                </div>
+                <button class="btn btn--primary" type="button" id="btn-export" aria-label="Exportar dados em planilha CSV">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                  Exportar planilha
+                </button>
+              </div>
+            </header>
+            <div class="chart-card__body chart-card__body--tall">
+              <canvas id="chart-cashflow-main" aria-label="Comparativo de receitas e despesas no período" role="img"></canvas>
+            
+            </div>
+            <footer class="chart-card__legend">
+              <span class="legend"><i class="legend__swatch legend__swatch--primary"></i> Receitas</span>
+              <span class="legend"><i class="legend__swatch legend__swatch--muted"></i> Despesas</span>
+              <span class="legend legend--push"><i class="legend__swatch legend__swatch--accent"></i> Saldo líquido</span>
+            </footer>
+          </article>
+        </section>
+
+        <!-- ========== RECEITAS vs DESPESAS ========== -->
+        <section class="cashflow-grid" aria-label="Lançamentos cadastrados">
+          <!-- INCOME -->
+          <article class="card tx-card">
+            <header class="card__head">
+              <div>
+                <h2 class="card__title">
+                  <span class="tx-card__pill tx-card__pill--income" aria-hidden="true"></span>
+                  Receitas
+                </h2>
+                <p class="card__sub" id="income-month-label">0 lançamento(s)</p>
+              </div>
+              <span class="tx-card__total tx-card__total--income" id="income-total">R$ 0,00</span>
+            </header>
+            <ul class="tx-list" id="income-list" aria-label="Lista de receitas cadastradas"></ul>
+          </article>
+
+          <!-- EXPENSE -->
+          <article class="card tx-card">
+            <header class="card__head">
+              <div>
+                <h2 class="card__title">
+                  <span class="tx-card__pill tx-card__pill--expense" aria-hidden="true"></span>
+                  Despesas
+                </h2>
+                <p class="card__sub" id="expense-month-label">0 lançamento(s)</p>
+              </div>
+              <span class="tx-card__total tx-card__total--expense" id="expense-total">R$ 0,00</span>
+            </header>
+            <ul class="tx-list" id="expense-list" aria-label="Lista de despesas cadastradas"></ul>
+          </article>
+        </section>
+
+        <footer class="footer">
+          <span>© 2026 Financial Hub. Os dados ficam armazenados apenas neste navegador.</span>
+          <span class="footer__sep" aria-hidden="true">•</span>
+          <span>Última atualização: <time id="last-update">--:--</time></span>
+        </footer>
+      </main>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>

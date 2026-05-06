@@ -1,32 +1,272 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Bem-vindo ao Valorize</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="initial-menu-overlay">
-        <div class="menu-content">
-            
-            <img src="valorizeloggo.png" alt="Logo Valorize" class="menu-logo"> 
-            
-            <h1 class="welcome-title">Valorize</h1>
-            <nav class="initial-nav">
-                <ul>
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="maquinadotempo.html">Máquina do Tempo</a></li>
-                    <li><a href="areacripto.html">Área Cripto</a></li>
-                    <li><a href="rendafixa.html">Renda Fixa</a></li>
-                    <li><a href="indices.html">Índices Econômicos</a></li>
-                </ul>
-            </nav>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hub financeiro com dashboard limpo e moderno para acompanhamento de índices, ativos e desempenho de portfólio."
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Financial Hub | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <div class="app">
+      <!-- ========== BARRA LATERAL ========== -->
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">
+            <div class="brand__mark" aria-hidden="true">
+            <!-- Certifique-se de que o nome do arquivo aqui está exatamente igual ao nome da imagem na sua pasta -->
+            <img src="valorizeloggo.png" alt="Logo Valorize" style="width: 67%; height: 67%; object-fit: cover; border-radius: 10px;">
+          </div>
+              <path d="M3 17l6-6 4 4 8-8" />
+              <path d="M14 7h7v7" />
+            </svg>
+          </div>
+          <div class="brand__text">
+            <strong>VALORIZE</strong>
+          </div>
         </div>
+
+        <nav class="nav" aria-label="Seções do hub">
+          <ul>
+            <li><a href="index.html" class="nav__item is-active" aria-current="page">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+              </span>
+              Visão Geral
+            </a></li>
+            <li><a href="fluxodecaixa.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+              </span>
+              Fluxo de Caixa 
+            </a></li>
+            <li><a href="rendafixaa.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              Renda Fixa
+            </a></li>
+            <li><a href="criptomoedas.html" class="nav__item">
+              <span class="nav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v8"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+              </span>
+              Criptomoedas
+            </a></li>
+            
+          </ul>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a href="#" class="nav__item">
+            <span class="nav__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+            </span>
+            Configurações
+          </a>
+        </div>
+      </aside>
+
+      <!-- ========== MAIN ========== -->
+      <main class="main" id="main">
+        <!-- Topbar -->
+        <header class="topbar">
+          <div class="topbar__title">
+            <h1>Visão Geral</h1>
+            <p>Acompanhe seus principais indicadores financeiros em tempo real.</p>
+          </div>
+
+          <div class="topbar__tools">
+            <label class="search" aria-label="Buscar ativos">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="search" placeholder="Buscar ativo, fundo, índice..." />
+            </label>
+
+            <button class="btn btn--ghost" type="button" aria-label="Notificações">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9z"/><path d="M10 21a2 2 0 004 0"/></svg>
+              <span class="badge-dot" aria-hidden="true"></span>
+            </button>
+
+            <div class="user">
+              <div class="user__avatar" aria-hidden="true">BR</div>
+              <div class="user__info">
+                <strong>Bruno Arial</strong>
+                <span>Investidor</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ========== KPI CARDS ========== -->
+        <section class="kpis" aria-label="Indicadores principais">
+         <article class="card kpi" data-kpi="balance">
+            <header class="kpi__head">
+              <span class="kpi__label" id="kpi-titulo">
+                Minha Cripto: 
+                <select id="seletor-moeda" style="background: transparent; border: none; color: inherit; font-weight: inherit; font-family: inherit; cursor: pointer; outline: none; border-bottom: 1px dashed currentColor;">
+                  <!-- Será preenchido magicamente pelo areacripto.js -->
+                </select>
+              </span> 
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v8"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" style="display: flex; align-items: center; gap: 10px;">
+              <img id="kpi-imagem-dinamica" src="" alt="" style="width: 28px; height: 28px; display: none;">
+              <span id="kpi-preco-dinamico">Carregando...</span>
+            </div>
+            <footer class="kpi__foot" style="justify-content: space-between; align-items: center; width: 100%;">
+              <div>
+                <span class="trend" id="kpi-crypto-amount" style="background: transparent; padding: 0; color: var(--text-muted); font-weight: 500;">0.00</span>
+              </div>
+              <!-- Espaço para o mini-gráfico super sutil -->
+              <div id="kpi-crypto-spark" style="width: 60px; height: 20px;"></div>
+            </footer>
+          </article>
+
+          <article class="card kpi" data-kpi="economia">
+            <header class="kpi__head">
+              <span class="kpi__label">
+                Índice: 
+                <select id="seletor-economia" style="background: transparent; border: none; color: inherit; font-weight: inherit; font-family: inherit; cursor: pointer; outline: none; border-bottom: 1px dashed currentColor;">
+                  <option value="selic" style="color: #000;">Selic (Diária)</option>
+                  <option value="ipca" style="color: #000;">IPCA (Mensal)</option>
+                </select>
+              </span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" id="kpi-valor-economia">Carregando...</div>
+            <footer class="kpi__foot">
+              <span class="kpi__period" id="kpi-periodo-economia">Taxa ao dia</span>
+            </footer>
+              <footer class="kpi__foot">
+                <span class="trend trend--up">Atualizado ao vivo</span>
+              </footer>
+          </article>
+
+          <article class="card kpi" data-kpi="income">
+            <header class="kpi__head">
+              <span class="kpi__label">Receitas do mês</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" data-value="32890.00">R$ 32.890,00</div>
+            <footer class="kpi__foot">
+              <span class="trend trend--up">+ 8,40%</span>
+              <span class="kpi__period">vs. mês anterior</span>
+            </footer>
+          </article>
+
+          <article class="card kpi" data-kpi="expense">
+            <header class="kpi__head">
+              <span class="kpi__label">Despesas do mês</span>
+              <span class="kpi__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </span>
+            </header>
+            <div class="kpi__value" data-value="14620.78">R$ 14.620,78</div>
+            <footer class="kpi__foot">
+              <span class="trend trend--down">- 3,12%</span>
+              <span class="kpi__period">vs. mês anterior</span>
+            </footer>
+          </article>
+        </section>
+
+        <!-- ========== CHART GRID ========== -->
+        <section class="grid">
+          <!-- Evolução da Renda Fixa (Metade da tela - span 6) -->
+          <article class="card chart-card chart-card--md">
+            <header class="card__head">
+              <div>
+                <h2 class="card__title">Evolução da Renda Fixa</h2>
+                <p class="card__sub">Crescimento simulado do patrimônio investido</p>
+              </div>
+              <div class="chip-group" role="tablist" aria-label="Período">
+                <button class="chip is-active" role="tab" aria-selected="true">12M</button>
+              </div>
+            </header>
+            <div class="chart-card__body">
+              <canvas id="chart-performance" aria-label="Gráfico de evolução da carteira" role="img"></canvas>
+            </div>
+            <footer class="chart-card__legend">
+              <span class="legend"><i class="legend__swatch legend__swatch--primary"></i> Meu Patrimônio</span>
+              <span class="legend"><i class="legend__swatch legend__swatch--accent"></i> CDI (Ref.)</span>
+            </footer>
+          </article>
+
+          <!-- Cashflow Compare Interativo (Outra Metade da tela - span 6) -->
+          <article class="card chart-card chart-card--md">
+            <header class="card__head card__head--wrap" style="margin-bottom: 8px;">
+              <div>
+                <h2 class="card__title">Fluxo de Caixa</h2>
+                <p class="card__sub">Receitas x Despesas</p>
+              </div>
+              <div class="chip-group" id="dash-cf-period" role="tablist" aria-label="Período">
+                <button class="chip is-active" type="button" role="tab" aria-selected="true" data-range="monthly">6M</button>
+                <button class="chip" type="button" role="tab" data-range="quarterly">Trim.</button>
+                <button class="chip" type="button" role="tab" data-range="yearly">Ano</button>
+              </div>
+            </header>
+            <div class="chart-card__body">
+              <canvas id="chart-cashflow-dash" aria-label="Comparativo de fluxo de caixa" role="img"></canvas>
+            </div>
+            <footer class="chart-card__legend">
+              <span class="legend"><i class="legend__swatch legend__swatch--primary"></i> Receitas</span>
+              <span class="legend"><i class="legend__swatch legend__swatch--muted"></i> Despesas</span>
+            </footer>
+          </article>
+
+          <!-- Watchlist (Largura Total - span 12) -->
+          <article class="card chart-card chart-card--full">
+            <header class="card__head">
+              <div>
+                <h2 class="card__title">Índices de mercado</h2>
+                <p class="card__sub">Cotações em tempo real</p>
+              </div>
+              <span class="status" aria-live="polite">
+                <i class="status__dot"></i> Ao vivo
+              </span>
+            </header>
+            <div class="table-wrap">
+              <table class="table" id="market-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Ativo</th>
+                    <th scope="col" class="num">Preço</th>
+                    <th scope="col" class="num">Variação</th>
+                    <th scope="col" class="num hide-sm">Tendência</th>
+                  </tr>
+                </thead>
+                <tbody><!-- populated by JS --></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <footer class="footer">
+          <span>© 2026 Financial Hub. Dados meramente ilustrativos.</span>
+          <span class="footer__sep" aria-hidden="true">•</span>
+          <span>Última atualização: <time id="last-update">--:--</time></span>
+        </footer>
+      </main>
     </div>
-    <script src="script.js"></script>
-</body>
+
+    <script src="script.js" defer></script>
+    <script src="areacripto.js"></script>
+  </body>
 </html>
