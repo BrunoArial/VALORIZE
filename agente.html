@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
       .chat-container {
@@ -85,6 +86,24 @@
         margin-top: 4px;
         margin-left: 12px;
         display: none;
+        /* Ajustes para o Markdown renderizado dentro do balão do bot */
+      .chat-msg--bot .chat-bubble p {
+        margin-top: 0;
+        margin-bottom: 12px;
+      }
+      .chat-msg--bot .chat-bubble p:last-child {
+        margin-bottom: 0;
+      }
+      .chat-msg--bot .chat-bubble ul, 
+      .chat-msg--bot .chat-bubble ol {
+        margin-top: 0;
+        margin-bottom: 12px;
+        padding-left: 20px;
+      }
+      .chat-msg--bot .chat-bubble strong {
+        color: var(--text);
+        font-weight: 700;
+      }
       }
     </style>
   </head>
@@ -212,7 +231,13 @@
           
           const bubbleDiv = document.createElement('div');
           bubbleDiv.classList.add('chat-bubble');
-          bubbleDiv.textContent = text;
+          
+          // Se for o bot, traduz o Markdown para HTML visual. Se for o usuário, mantém texto puro.
+          if (sender === 'bot') {
+            bubbleDiv.innerHTML = marked.parse(text);
+          } else {
+            bubbleDiv.textContent = text;
+          }
           
           msgDiv.appendChild(bubbleDiv);
           chatHistory.appendChild(msgDiv);
